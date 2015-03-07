@@ -19,9 +19,17 @@ var titleView = new TitleView();
 tiles.push(titleView);
 scroll.subscribe(titleView);
 
-// var title2 = new TitleView();
-// tiles.push(title2);
-// scroll.subscribe(title2);
+
+/* Second Slide - frontier awaits */
+var frontierAwaitsView = new FrontierAwaitsView();
+tiles.push(frontierAwaitsView);
+scroll.subscribe(frontierAwaitsView);
+
+
+/* Third Slide - Mist rocks */
+var mistRocksView = new MistRocksView();
+tiles.push(mistRocksView);
+scroll.subscribe(mistRocksView);
 
 /* Crete the main context */
 mainContext.add(scroll);
