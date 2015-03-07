@@ -5,18 +5,14 @@ var Modifier 			= require('famous/core/Modifier');
 TitleView =function() {
 	View.apply(this, arguments);
 
-	// this.imageSurface = new ImageSurface({
-	// 	content: "/pictures/CraigCheney.jpg",
-	// 	size : [100, true],
-	// });
-	
-	// this.add(this.imageSurface);
-	// this.imageSurface.pipe(this._eventOutput);
-
 	this.viewModifier = new Modifier({
-		size:[window.innerWidth, window.innerHeight]
 	});
 
+	this.viewModifier.sizeFrom(function(){
+		return [window.innerWidth, window.innerHeight];
+	});
+
+	this.viewNode = this.add(this.viewModifier);
 	/******************* Background image ************************/
 	this.backgroundImage = new ImageSurface({
 		content:"/pictures/forest-landscape.jpeg",
@@ -29,41 +25,11 @@ TitleView =function() {
 	});
 
 	/* Background Image sizing Algorithm */
-	this.backgroundImageMod.sizeFrom(function(){
-		/* Image size in pixels */
-		var imageX = 2200.0;
-		var imageY = 1394.0;
-		var imageAspect = imageX/imageY;
-
-		/* User's screen size in pixels */
-		var windowX = window.innerWidth * 1.0;
-		var windowY = window.innerHeight * 1.0;
-		var windowAspect = (windowX/windowY);
-
-		/* return values */
-		var width;
-		var height;
-
-		/* if screen is too wide for image */
-		if (windowAspect > imageAspect){
-			/* Size to X, scale to Y */
-			width = windowX;
-			height = imageY/imageX * windowX; 
-		}
-
-		/* If screen is too tall for image */
-		else {
-			/* Size to Y, scale to X */
-			width = imageX/imageY * windowY;
-			height = windowY;
-
-		}
-
-		return [width, height];
-
+	this.backgroundImageMod.sizeFrom( function(){
+		return dynamicScale(2200,1394);
 	});
 
-	this.viewNode = this.add(this.viewModifier);
+
 	this.viewNode.add(this.backgroundImageMod).add(this.backgroundImage);
 	this.backgroundImage.pipe(this._eventOutput);
 	/******************************************************************/
