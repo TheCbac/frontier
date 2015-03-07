@@ -11,7 +11,7 @@ backgroundImage = function() {
 	});
 
 	var viewModifier = new Modifier({
-		 //size:[undefined,undefined]
+		 size:[window.innerWidth,window.innerHeight]
 	});
 
 
@@ -131,6 +131,6 @@ backgroundImage = function() {
 	sizeNode.add(frontierImageMod).add(frontierImage);
 	sizeNode.add(backgroundImageMod).add(backgroundImage);
 
-	return sizeNode;
-	// return imageView;
+	// return sizeNode;
+	return imageView;
 };
