@@ -34,6 +34,44 @@ FrontierAwaitsView = function () {
 	this.backgroundSurface.pipe(this._eventOutput);
 	/******************************************************************/
 
+	this.textSurface = new Surface({
+		content: "TEST",
+		properties: {
+			backgroundColor: "blue",
+			fontSize: "1.6em",
+			fontFamily:"gothamHTF"
+		}
+	});
+
+	this.textSurfaceMod = new Modifier({
+		transform: Transform.translate(0,0,1),
+		origin: [0.5, 0.5],
+		align: 	[0.5, 0.5],
+		size: 	[100,100]
+	});
+
+	// this.viewNode.add(this.textSurfaceMod).add(this.textSurface);
+	// this.textSurface.pipe(this._eventOutput);
+	/******************* Pulldown arrow image ************************/
+	this.pullDownImage = new ImageSurface({
+		content:"/pictures/pulldown.png",
+		size: [50, true]
+	});
+
+	this.pullDownImageMod = new  Modifier({
+		origin: [0.5,1.0],
+		align: [0.5,0.95]
+	});
+
+	this.viewNode.add(this.pullDownImageMod).add(this.pullDownImage);
+	this.pullDownImage.pipe(this._eventOutput);
+
+	//var eventHandler = new EventHandler();
+	this.pullDownImage.on('click', function(event){
+		eventHandler.emit('pullDownClicked');
+	});
+	/******************************************************************/
+
 };
 
 FrontierAwaitsView.prototype = Object.create(View.prototype);
