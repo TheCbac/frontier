@@ -100,6 +100,10 @@ TitleView =function() {
 	});
 	this.viewNode.add(this.hamburgerImageMod).add(this.hamburgerImage);
 	this.hamburgerImage.pipe(this._eventOutput);
+
+	this.hamburgerImage.on('click', function(event){
+		eventHandler.emit('toggleDrawer');
+	});
 	/******************************************************************/
 
 	/******************* Oregon 2015 text *****************************/
