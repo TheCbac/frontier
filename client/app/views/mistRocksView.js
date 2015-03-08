@@ -36,6 +36,32 @@ MistRocksView = function () {
 	/******************************************************************/
 
 
+	/******************* Pulldown arrow image ************************/
+	this.pullDownImage = new ImageSurface({
+		content:"/pictures/frontier-arrows.png",
+		size: [50, true]
+	});
+
+	this.pullUpMod = new Modifier({
+		transform: Transform.rotateZ(Math.PI),
+	});
+
+	this.pullDownImageMod = new  Modifier({
+		origin: [0.5,1.0],
+		align: [0.5,0.95]
+	});
+
+	// this.viewNode.add(this.pullUpMod).add(this.pullDownImageMod).add(this.pullDownImage);
+	// this.viewNode.add(this.pullDownImageMod).add(this.pullUpMod).add(this.pullDownImage);
+	this.viewNode.add(this.pullDownImageMod).add(this.pullDownImage);
+	this.pullDownImage.pipe(this._eventOutput);
+
+	//var eventHandler = new EventHandler();
+	this.pullDownImage.on('click', function(event){
+		eventHandler.emit('returnToTopClicked');
+	});
+	/******************************************************************/
+
 };
 
 MistRocksView.prototype = Object.create(View.prototype);

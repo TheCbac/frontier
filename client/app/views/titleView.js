@@ -1,6 +1,8 @@
 var View 				= require('famous/core/View');
 var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
+var EventHandler 		= require('famous/core/EventHandler');
+var Surface 			= require('famous/core/Surface');
 
 TitleView =function() {
 	View.apply(this, arguments);
@@ -48,6 +50,11 @@ TitleView =function() {
 
 	this.viewNode.add(this.pullDownImageMod).add(this.pullDownImage);
 	this.pullDownImage.pipe(this._eventOutput);
+
+	//var eventHandler = new EventHandler();
+	this.pullDownImage.on('click', function(event){
+		eventHandler.emit('pullDownClicked');
+	});
 	/******************************************************************/
 
 
@@ -96,18 +103,32 @@ TitleView =function() {
 	/******************************************************************/
 
 	/******************* Oregon 2015 text *****************************/
-	this.oregonTextImage = new ImageSurface({
-		content: "/pictures/oregon2015mockup.png"
+	// this.oregonTextImage = new ImageSurface({
+	// 	content: "/pictures/oregon2015mockup.png"
+	// });
+
+	this.oregonText = new Surface({
+		content: "OREGON 2015",
+		properties:{
+			fontFamily: "gothamHTF",
+			//backgroundColor:"orange",
+			color: "#646665",
+			fontSize:"1.5em",
+			textAlign: "center",
+			fontWeight: "bold",
+		}
 	});
 
-	this.oregonTextImageMod = new Modifier({
-		size: [150, true],
-		origin:[0.5, 0.5],
-		align:[0.5, 0.5],
+	this.oregonTextMod = new Modifier({
+		size: [undefined, 40],
+		origin:[0.5, 0.5],	
+		align:[0.5, 0.54],
 	});
 
-	this.viewNode.add(this.oregonTextImageMod).add(this.oregonTextImage);
-	this.oregonTextImage.pipe(this._eventOutput);
+	// this.viewNode.add(this.oregonTextImageMod).add(this.oregonTextImage);
+	// this.oregonTextImage.pipe(this._eventOutput);
+	this.viewNode.add(this.oregonTextMod).add(this.oregonText);
+	this.oregonText.pipe(this._eventOutput);
 	/******************************************************************/	
 
 
