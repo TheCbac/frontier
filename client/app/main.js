@@ -12,6 +12,7 @@ var RenderController 	= require('famous/views/RenderController');
 var mainContext = Engine.createContext();
 
 
+
 Engine.on('resize', function(){
 	updateWindowSize();
 });
@@ -69,6 +70,13 @@ rightDrawer = new RightDrawerView();
 /* Crete the main context */
 mainContext.add(scroll);
 mainContext.add(renderController);
+
+
+// Make sure that the window is sized properly once it is created
+Engine.defer(function(){
+	updateWindowSize();
+});
+
 // mainContext.add(rightDrawer);
 
 // renderController.hide(rightDrawer);
@@ -84,8 +92,15 @@ eventHandler.on('returnToTopClicked', function(){
 	scroll.goToPage(0);
 });
 
-eventHandler.on('tile2', function(){
-	console.log('tile2');
+eventHandler.on('tileState2', function(){
+	frontierAwaitsView.renderController.hide({duration :0});
+	//datesView.renderController.hide({duration:0});
+});
+
+eventHandler.on('tileState1', function(){
+	frontierAwaitsView.renderController.show(frontierAwaitsView.pullDownImage, {duration :0} );
+	datesView.renderController.show(datesView.pullDownImage, {duration :0} );
+	
 });
 
 eventHandler.on('toggleDrawer',function(){

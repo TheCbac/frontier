@@ -1,12 +1,44 @@
-globalWindowX=100;
-globalWindowY=100;
-globalAspectRatio=1;
+globalWindowX=null;
+globalWindowY=null;
+globalAspectRatio=null;
+globalTileState=null;
 
 updateWindowSize = function(){
 	globalWindowY = window.innerHeight;
 	globalWindowX = window.innerWidth;
+
+	var pastAspectRatio = globalAspectRatio;
 	globalAspectRatio = globalWindowX/globalWindowY;
+
+	// Deal with initial state
+	if (pastAspectRatio === null){
+		pastAspectRatio = globalAspectRatio;
+
+		if (globalAspectRatio >=1 ){
+			globalTileState =2;
+			eventHandler.emit("tileState2");
+		}
+
+		else {
+			globalTileState= 1;
+			eventHandler.emit("tileState1");}
+	}
+
+	// If there was a transition over 1, change the globalTileState
+	if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
+		eventHandler.emit("tileState2");
+		globalTileState =2;
+	}
+
+	else if(globalAspectRatio < 1 && pastAspectRatio >= 1){
+		eventHandler.emit("tileState1");
+		globalTileState= 1;
+	}
+
+
 };
+
+
 
 dynamicScale= function(imageX, imageY) {	
 // function dynamicScale(imageX, imageY){
@@ -39,19 +71,6 @@ dynamicScale= function(imageX, imageY) {
 	return [width, height];
 };
 
-// Used for determining the size of the balck and white tiles 
-determineTileHeight =function(){
-
-	if (globalAspectRatio >=1){
-		//console.log(globalWindowY);
-		//eventHandler.emit("tile2");
-		return 2;
-	}
-
-	else{
-		return 1;
-	}
-};
 
 screenSize = function(){
 	return [window.innerWidth, window.innerHeight];
