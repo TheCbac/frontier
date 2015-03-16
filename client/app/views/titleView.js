@@ -3,6 +3,7 @@ var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
 var EventHandler 		= require('famous/core/EventHandler');
 var Surface 			= require('famous/core/Surface');
+var Transform 			= require('famous/core/Transform');
 
 TitleView =function() {
 	View.apply(this, arguments);
@@ -11,10 +12,12 @@ TitleView =function() {
 	});
 
 	this.viewModifier.sizeFrom(function(){
-		return [window.innerWidth, window.innerHeight];
+		return [globalWindowX, globalWindowY];
 	});
 
 	this.viewNode = this.add(this.viewModifier);
+
+	
 	/******************* Background image ************************/
 	this.backgroundImage = new ImageSurface({
 		content:"/pictures/forest-landscape.jpeg",
@@ -45,7 +48,8 @@ TitleView =function() {
 
 	this.pullDownImageMod = new  Modifier({
 		origin: [0.5,1.0],
-		align: [0.5,0.95]
+		align: [0.5,0.95],
+		transform: Transform.translate(0,0,1),
 	});
 
 	this.viewNode.add(this.pullDownImageMod).add(this.pullDownImage);
@@ -66,7 +70,8 @@ TitleView =function() {
 	this.frontierImageMod = new Modifier({
 		size:[315,true],
 		align:[0.5, 0.4],
-		origin:[0.5, 0.5]
+		origin:[0.5, 0.5],
+		transform: Transform.translate(0,0,1),
 	});
 
 	this.viewNode.add(this.frontierImageMod).add(this.frontierImage);
@@ -82,6 +87,7 @@ TitleView =function() {
 		size: [45,true],
 		origin:[0, 0],
 		align:[0.02, 0.02],
+		transform: Transform.translate(0,0,1),
 	});
 
 	this.viewNode.add(this.frontierArrowsMod).add(this.frontierArrows);
@@ -97,16 +103,17 @@ TitleView =function() {
 		size: [true,30],
 		origin:[1.0, 0],
 		align:[0.9, 0.05],
+		transform: Transform.translate(0,0,1),
 	});
 	this.viewNode.add(this.hamburgerImageMod).add(this.hamburgerImage);
 	this.hamburgerImage.pipe(this._eventOutput);
+
+	this.hamburgerImage.on('click', function(event){
+		eventHandler.emit('toggleDrawer');
+	});
 	/******************************************************************/
 
 	/******************* Oregon 2015 text *****************************/
-	// this.oregonTextImage = new ImageSurface({
-	// 	content: "/pictures/oregon2015mockup.png"
-	// });
-
 	this.oregonText = new Surface({
 		content: "OREGON 2015",
 		properties:{
@@ -123,6 +130,7 @@ TitleView =function() {
 		size: [undefined, 40],
 		origin:[0.5, 0.5],	
 		align:[0.5, 0.54],
+		transform: Transform.translate(0,0,1),
 	});
 
 	// this.viewNode.add(this.oregonTextImageMod).add(this.oregonTextImage);
