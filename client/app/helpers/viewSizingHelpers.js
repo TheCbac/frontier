@@ -20,10 +20,18 @@ updateWindowSize = function(){
 		}
 
 		else {
-			globalTileState= 1;
-			eventHandler.emit("tileState1");}
-	}
+			if ( globalWindowY >= 1000 ){
+				eventHandler.emit("tileState2");
+				globalTileState= 2;
+			}
 
+			else {
+				eventHandler.emit("tileState1");
+				globalTileState= 1;
+				}
+		}
+	}
+	
 	// If there was a transition over 1, change the globalTileState
 	if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
 		eventHandler.emit("tileState2");
@@ -31,8 +39,18 @@ updateWindowSize = function(){
 	}
 
 	else if(globalAspectRatio < 1 && pastAspectRatio >= 1){
-		eventHandler.emit("tileState1");
-		globalTileState= 1;
+		// don't resive if screen is more that 1000 px high
+		if ( globalWindowY >= 1000 ){
+			eventHandler.emit("tileState2");
+			globalTileState= 2;
+		}
+
+		else {
+			eventHandler.emit("tileState1");
+			globalTileState= 1;
+		}
+
+
 	}
 
 

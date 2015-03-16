@@ -67,7 +67,18 @@ DatesView = function () {
 	this.datesSurfaceMod = new Modifier({
 		size:[150,50],
 		origin:[0,0.5],
-		align:[0.05,0.5],
+		// align:[0.05,0.5],
+	});
+
+
+	this.datesSurfaceMod.alignFrom(function(){
+		if (globalTileState == 2){
+			return [0.05, 0.5];
+		}
+
+		if (globalTileState == 1){
+			return [0.05, 0.4];
+		}
 	});
 
 	this.viewNode.add(this.datesSurfaceMod).add(this.datesSurface);
@@ -93,7 +104,7 @@ DatesView = function () {
 	});
 
 	this.oregonDescriptionMod.sizeFrom(function(){
-		return [0.60 * globalWindowX, true];
+		return [0.6 * globalWindowX, true];
 	});
 
 	this.viewNode.add(this.oregonDescriptionMod).add(this.oregonDescriptionSurface);
