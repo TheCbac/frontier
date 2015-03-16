@@ -1,13 +1,20 @@
 famous.polyfills;
 famous.core.famous;
 
-var mainContext = famous.core.Engine.createContext();
-var Scrollview = require('famous/views/Scrollview');
+
+var Engine 				= require('famous/core/Engine');
+var Scrollview 			= require('famous/views/Scrollview');
 var Surface 			= require('famous/core/Surface');
 var View 				= require('famous/core/View');
 var EventHandler 		= require('famous/core/EventHandler');
 var RenderController 	= require('famous/views/RenderController');
 
+var mainContext = Engine.createContext();
+
+
+Engine.on('resize', function(){
+	updateWindowSize();
+});
 
 /* Create and array for the slide tiles */
 var tiles = [];
@@ -18,7 +25,7 @@ scroll = new Scrollview({
 	// pageStopSpeed: 0.1,
 	//drag: 10,
 
-	pageDamp: 2,
+	//pageDamp: 2,
 });
 
 scroll.sequenceFrom(tiles);
@@ -41,6 +48,11 @@ scroll.subscribe(titleView);
 var frontierAwaitsView = new FrontierAwaitsView();
 tiles.push(frontierAwaitsView);
 scroll.subscribe(frontierAwaitsView);
+
+/* Third Slide - Dates */
+var datesView = new DatesView();
+tiles.push(datesView);
+scroll.subscribe(datesView);
 
 
 /* Third Slide - Mist rocks */
@@ -70,6 +82,10 @@ eventHandler.on('pullDownClicked', function(){
 
 eventHandler.on('returnToTopClicked', function(){
 	scroll.goToPage(0);
+});
+
+eventHandler.on('tile2', function(){
+	console.log('tile2');
 });
 
 eventHandler.on('toggleDrawer',function(){

@@ -11,10 +11,12 @@ TitleView =function() {
 	});
 
 	this.viewModifier.sizeFrom(function(){
-		return [window.innerWidth, window.innerHeight];
+		return [globalWindowX, globalWindowY];
 	});
 
 	this.viewNode = this.add(this.viewModifier);
+
+	
 	/******************* Background image ************************/
 	this.backgroundImage = new ImageSurface({
 		content:"/pictures/forest-landscape.jpeg",
