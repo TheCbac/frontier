@@ -22,7 +22,7 @@ var tiles = [];
 /* Create the scrollview */
 scroll = new Scrollview({
 	paginated:true,
-	speedLimit: 0.9,
+	//speedLimit: 0.9,
 	// pageStopSpeed: 0.1,
 	//drag: 10,
 
