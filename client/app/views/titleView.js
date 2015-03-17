@@ -69,7 +69,7 @@ TitleView =function() {
 
 	this.frontierImageMod = new Modifier({
 		size:[315,true],
-		align:[0.5, 0.4],
+		align:[0.5, 0.38],
 		origin:[0.5, 0.5],
 		transform: Transform.translate(0,0,1),
 	});
@@ -129,7 +129,7 @@ TitleView =function() {
 	this.oregonTextMod = new Modifier({
 		size: [undefined, 40],
 		origin:[0.5, 0.5],	
-		align:[0.5, 0.54],
+		align:[0.5, 0.57],
 		transform: Transform.translate(0,0,1),
 	});
 

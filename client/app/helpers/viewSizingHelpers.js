@@ -15,8 +15,16 @@ updateWindowSize = function(){
 		pastAspectRatio = globalAspectRatio;
 
 		if (globalAspectRatio >=1 ){
-			globalTileState =2;
-			eventHandler.emit("tileState2");
+			// If Y is < 530 px, stay in one tile
+			if (globalWindowY <= 530){
+				eventHandler.emit("tileState1");
+				globalTileState= 1;
+			}
+
+			else{
+				globalTileState =2;
+				eventHandler.emit("tileState2");
+			}
 		}
 
 		else {
@@ -34,8 +42,15 @@ updateWindowSize = function(){
 	
 	// If there was a transition over 1, change the globalTileState
 	if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
-		eventHandler.emit("tileState2");
-		globalTileState =2;
+		
+		if (globalWindowY <= 530){
+				eventHandler.emit("tileState1");
+				globalTileState= 1;
+		}
+		else{
+			eventHandler.emit("tileState2");
+			globalTileState =2;
+		}
 	}
 
 	else if(globalAspectRatio < 1 && pastAspectRatio >= 1){

@@ -25,8 +25,8 @@ scroll = new Scrollview({
 	//speedLimit: 0.9,
 	// pageStopSpeed: 0.1,
 	//drag: 10,
-
-	//pageDamp: 2,
+	// pagePeriod: 1,
+	pageDamp: 2,
 });
 
 scroll.sequenceFrom(tiles);
