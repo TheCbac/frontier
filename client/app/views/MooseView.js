@@ -48,8 +48,8 @@ MooseView = function () {
 
 	this.backgroundMod = new Modifier({
 		//size: [undefined, undefined],
-		origin:[0.4, 0.5],
-		align: [0.4, 0.5],
+		origin:[0.4, 0.6],
+		align: [0.4, 0.6],
 		// origin:[1, 0],
 		// align: [1, 0],
 		transform: Transform.translate(0,0,-3)
