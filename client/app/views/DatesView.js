@@ -38,6 +38,7 @@ DatesView = function () {
 
 	this.backgroundMod = new Modifier({
 		size: [undefined, undefined],
+		transform: Transform.translate(0,0,0),
 		// origin:[0,0],
 		// align: [1,0],
 	});
@@ -67,6 +68,7 @@ DatesView = function () {
 	this.datesSurfaceMod = new Modifier({
 		size:[150,50],
 		origin:[0,0.5],
+		transform: Transform.translate(0,0,1)
 		// align:[0.05,0.5],
 	});
 

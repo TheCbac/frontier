@@ -5,9 +5,9 @@ var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
 var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
+var GridLayout 			= require('famous/views/GridLayout');
 
-
-EmptyView = function () {
+PictureGridView = function () {
 
 	/***************************** main view ***************************/
 	View.apply(this, arguments);
@@ -16,34 +16,40 @@ EmptyView = function () {
 	});
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
-		return [window.innerWidth, window.innerHeight/2];
+		return [globalWindowX, globalWindowY];
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
 	/******************************************************************/
 
+	this.gridLayout = new GridLayout({
+		dimensions: [globalGridX,1],
+	});
+
+	this.viewNode.add(this.gridLayout);
+	this.gridLayout.pipe(this._eventOutput);
 	/*********************** Render Controller ************************/
-	this.renderController = new RenderController();
-	this.viewNode.add(this.renderController);
+	// this.renderController = new RenderController();
+	// this.viewNode.add(this.renderController);
 	/******************************************************************/
 
 	/******************* Background Surface *****************************/
-	this.backgroundSurface = new Surface({
-		content: "",
-		properties: {
-			backgroundColor: "white"
-		}
-	});
+	// this.backgroundSurface = new Surface({
+	// 	content: "",
+	// 	properties: {
+	// 		backgroundColor: "white"
+	// 	}
+	// });
 
-	this.backgroundMod = new Modifier({
-		size: [undefined, undefined],
-		// origin:[0,0],
-		// align: [1,0],
-	});
+	// this.backgroundMod = new Modifier({
+	// 	size: [undefined, undefined],
+	// 	// origin:[0,0],
+	// 	// align: [1,0],
+	// });
 
 
-	this.ViewewNode.add(this.backgroundMod).add(this.backgroundSurface);
-	this.backgroundSurface.pipe(this._eventOutput);
+	// this.ViewewNode.add(this.backgroundMod).add(this.backgroundSurface);
+	// this.backgroundSurface.pipe(this._eventOutput);
 
 	// this.backgroundSurface.on('click', function(event){
 	// 	eventHandler.emit('');
@@ -53,7 +59,7 @@ EmptyView = function () {
 
 };
 
-EmptyView.prototype = Object.create(View.prototype);
-EmptyView.prototype.constructor = EmptyView;
+PictureGridView.prototype = Object.create(View.prototype);
+PictureGridView.prototype.constructor = PictureGridView;
 
-EmptyView.DEFAULT_OPTIONS = {};
+PictureGridView.DEFAULT_OPTIONS = {};
