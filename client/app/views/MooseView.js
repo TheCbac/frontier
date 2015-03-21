@@ -13,13 +13,9 @@ MooseView = function () {
 	View.apply(this, arguments);
 	// Create modifier
 	this.viewModifier = new Modifier({
+		size: [undefined, undefined],
 	});
-	// size view to screen
-	this.viewModifier.sizeFrom(function(){
-		// return [globalWindowX, globalWindowY];
-		// return [globalWindowX/globalGridX, globalWindowY/globalGridY];
-		return [undefined, undefined];
-	});
+
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
 	/******************************************************************/
@@ -29,17 +25,13 @@ MooseView = function () {
 	// this.viewNode.add(this.renderController);
 	// /*******************************************************************/
 
-	// this.containerSurface = new ContainerSurface({
-	// });
+	this.containerSurface = new ContainerSurface({
+		properties: {
+			overflow:'hidden'
+		}
+	});
 
-	// this.containerModifier = new Modifier();
-
-	// this.containerModifier.sizeFrom(function(){
-	// 	return [globalWindowX, globalWindowY];
-	// });
-	// //this.viewNode.add(this.containerSurface);
-
-
+	this.containerNode =this.viewNode.add(this.containerSurface);
 
 	/******************* Background Surface *****************************/
 	this.backgroundSurface = new ImageSurface({
@@ -47,27 +39,18 @@ MooseView = function () {
 	});
 
 	this.backgroundMod = new Modifier({
-		//size: [undefined, undefined],
 		origin:[0.4, 0.6],
 		align: [0.4, 0.6],
-		// origin:[1, 0],
-		// align: [1, 0],
 		transform: Transform.translate(0,0,-3)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
 		return dynamicScale2(587,700,globalWindowX/globalGridX, globalWindowY/globalGridY);
-		// return [globalWindowX/2 , true];
-		// return [undefined, undefined];
 	});
 
-	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
-	this.backgroundSurface.pipe(this._eventOutput);
 
-	// this.containerNode = this.containerSurface.add(this.backgroundMod).add(this.backgroundSurface);
-	// this.backgroundSurface.pipe(this._eventOutput);
-	// this.viewNode.add(this.containerModifier).add(this.containerNode);
-	// this.containerSurface.pipe(this._eventOutput);
+	this.containerSurface.add(this.backgroundMod).add(this.backgroundSurface);
+	this.backgroundSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
 
@@ -90,8 +73,7 @@ MooseView = function () {
 		transform: Transform.translate(0,0,1)
 	});
 
-
-	this.viewNode.add(this.natureMod).add(this.natureSurface);
+	this.containerSurface.add(this.natureMod).add(this.natureSurface);
 	this.natureSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
