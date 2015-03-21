@@ -86,7 +86,7 @@ MooseView = function () {
 	this.natureMod = new Modifier({
 		size: [150, 200],
 		origin:[0.5, 0.5],
-		align: [0.5, 0.5],
+		align: [0.5, 0.55],
 		transform: Transform.translate(0,0,1)
 	});
 

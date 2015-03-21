@@ -66,7 +66,7 @@ TrailView = function () {
 	this.hoofItMod = new Modifier({
 		size: [100, 200],
 		origin:[0.5, 0.5],
-		align: [0.5, 0.55],
+		align: [0.5, 0.6],
 		transform: Transform.translate(0,0,1)
 	});
 
