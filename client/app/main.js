@@ -10,6 +10,7 @@ var View 				= require('famous/core/View');
 var EventHandler 		= require('famous/core/EventHandler');
 var RenderController 	= require('famous/views/RenderController');
 
+var Transform 			= require('famous/core/Transform');
 var mainContext = Engine.createContext();
 
 // Make sure that the window is sized properly once it is created
@@ -95,7 +96,7 @@ scroll.subscribe(mooseView);
 
 
 // Add the barnView to picture tiles 
-var barnView = new BarnView();
+barnView = new BarnView();
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
@@ -144,6 +145,20 @@ eventHandler.on('tileState1', function(){
 	frontierAwaitsView.renderController.show(frontierAwaitsView.pullDownImage, {duration :0} );
 	datesView.renderController.show(datesView.pullDownImage, {duration :0} );
 	
+});
+
+
+resetBarn = function(){
+	console.log("reset Barn");
+	barnView.backgroundTrans.setRotate([0,0,0], {duration:0});
+};
+
+
+eventHandler.on('flipBarn', function(){
+	console.log("flipBarn");
+	// barnView.backgroundSurface.backgroundMod.trans.setRotate([180], {duration:100});
+	// barnView.backgroundMod.setTransform(Transform.rotateZ(Math.PI/2));
+	barnView.backgroundTrans.setRotate([0,2*Math.PI,0], {duration:2000}, resetBarn);
 });
 
 // eventHandler.on('toggleDrawer',function(){

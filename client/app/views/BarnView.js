@@ -5,14 +5,18 @@ var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
 var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
-
+var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
 BarnView = function () {
 
 	/***************************** main view ***************************/
 	View.apply(this, arguments);
 	// Create modifier
+
+	this.backgroundTrans = new TransitionableTransform();
+	
 	this.viewModifier = new Modifier({
+		transform: this.backgroundTrans,
 	});
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
@@ -34,6 +38,9 @@ BarnView = function () {
 		content: "/pictures/woodgrain.jpg"
 	});
 
+
+	
+
 	this.backgroundMod = new Modifier({
 		//size: [undefined, undefined],
 		origin:[0.5, 0],
@@ -48,8 +55,17 @@ BarnView = function () {
 		return [undefined, undefined];
 	});
 
-	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
+
+	
+
+	// this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
+	this.viewNode.add(this.backgroundTrans).add(this.backgroundMod).add(this.backgroundSurface);
 	this.backgroundSurface.pipe(this._eventOutput);
+
+	this.backgroundSurface.on('click', function(){
+		eventHandler.emit('flipBarn');
+		
+	});
 	/******************************************************************/
 
 	/******************* nature Surface *****************************/
