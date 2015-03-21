@@ -9,7 +9,7 @@ TitleView =function() {
 	View.apply(this, arguments);
 
 	this.viewModifier = new Modifier({
-		overflow:"auto"
+		// overflow:"auto"
 	});
 
 	this.viewModifier.sizeFrom(function(){

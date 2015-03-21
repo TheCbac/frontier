@@ -43,20 +43,20 @@ MooseView = function () {
 
 	/******************* Background Surface *****************************/
 	this.backgroundSurface = new ImageSurface({
-		content: "/pictures/moose.jpeg"
+		content: "/pictures/mooseCropped.jpeg"
 	});
 
 	this.backgroundMod = new Modifier({
 		//size: [undefined, undefined],
-		origin:[0.5, 0.5],
-		align: [0.5, 0.5],
+		origin:[0.4, 0.5],
+		align: [0.4, 0.5],
 		// origin:[1, 0],
 		// align: [1, 0],
-		transform: Transform.translate(0,0,-2)
+		transform: Transform.translate(0,0,-3)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
-		return dynamicScale2(1050,700,globalWindowX/globalGridX, globalWindowY/globalGridY);
+		return dynamicScale2(587,700,globalWindowX/globalGridX, globalWindowY/globalGridY);
 		// return [globalWindowX/2 , true];
 		// return [undefined, undefined];
 	});

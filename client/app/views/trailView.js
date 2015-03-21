@@ -31,21 +31,21 @@ TrailView = function () {
 
 	/******************* Background Surface *****************************/
 	this.backgroundSurface = new ImageSurface({
-		content: "/pictures/trail.jpeg"
+		content: "/pictures/trailCropped.jpeg"
 	});
 
 	this.backgroundMod = new Modifier({
 		//size: [undefined, undefined],
-		origin:[0, 0],
-		align: [0, 0],
-		transform: Transform.translate(0,0,-1)
+		origin:[0.4, 0],
+		align: [0.4, 0],
+		transform: Transform.translate(0,0,-5)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
 		// return dynamicScale(1050,700);
 		// return [globalWindowX/2 , true];
 		// return [undefined, undefined];
-		return dynamicScale2(1050,725,globalWindowX/globalGridX, globalWindowY/globalGridY);
+		return dynamicScale2(609,725,globalWindowX/globalGridX, globalWindowY/globalGridY);
 	});
 
 	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);

@@ -39,8 +39,8 @@ var tiles = [];
 // 	// pagePeriod: 1,
 // 	// pageDamp: 2,
 // });
-scroll = new ScrollContainer();
-
+//scroll = new ScrollContainer();
+scroll = new Scrollview();
 scroll.sequenceFrom(tiles);
 
 
@@ -84,6 +84,10 @@ rightDrawer = new RightDrawerView();
 
 var pictureGrid =[];
 
+
+
+
+
 // add the mooseView
 var mooseView = new MooseView();
 pictureGrid.push(mooseView);
@@ -94,7 +98,6 @@ scroll.subscribe(mooseView);
 var barnView = new BarnView();
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
-
 
 var trailView = new TrailView();
 pictureGrid.push(trailView);
