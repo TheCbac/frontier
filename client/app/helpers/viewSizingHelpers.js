@@ -2,6 +2,8 @@ globalWindowX=null;
 globalWindowY=null;
 globalAspectRatio=null;
 globalTileState=null;
+globalGridX = null;
+globalGridY = null;
 
 updateWindowSize = function(){
 	globalWindowY = window.innerHeight;
@@ -11,12 +13,24 @@ updateWindowSize = function(){
 	globalAspectRatio = globalWindowX/globalWindowY;
 
 	// Deal with initial state
-	if (pastAspectRatio === null){
+	if (pastAspectRatio === null || globalGridX === null){
 		pastAspectRatio = globalAspectRatio;
 
 		if (globalAspectRatio >=1 ){
-			globalTileState =2;
-			eventHandler.emit("tileState2");
+			// If Y is < 530 px, stay in one tile
+			if (globalWindowY <= 530){
+				eventHandler.emit("tileState1");
+				globalTileState= 1;
+			}
+
+			else{
+				globalTileState =2;
+				eventHandler.emit("tileState2");
+			}
+
+			globalGridX =3;
+	 		globalGridY =1;
+	 
 		}
 
 		else {
@@ -29,13 +43,27 @@ updateWindowSize = function(){
 				eventHandler.emit("tileState1");
 				globalTileState= 1;
 				}
+
+			globalGridX = 1;
+			globalGridY = 3;
+
 		}
 	}
 	
 	// If there was a transition over 1, change the globalTileState
 	if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
-		eventHandler.emit("tileState2");
-		globalTileState =2;
+		
+		if (globalWindowY <= 530){
+				eventHandler.emit("tileState1");
+				globalTileState= 1;
+		}
+		else{
+			eventHandler.emit("tileState2");
+			globalTileState =2;
+		}
+
+		globalGridX =3;
+	 	globalGridY =1;
 	}
 
 	else if(globalAspectRatio < 1 && pastAspectRatio >= 1){
@@ -50,9 +78,23 @@ updateWindowSize = function(){
 			globalTileState= 1;
 		}
 
+		globalGridX = 1;
+		globalGridY = 3;
+
 
 	}
 
+
+	// // set the global grid state
+	// if (globalWindowX < 900){
+	// 	globalGridX = 1;
+	// 	globalGridY=3;
+	// }
+
+	// else {
+	//  	globalGridX =3;
+	//  	globalGridY =1;
+	//  }
 
 };
 
@@ -67,6 +109,40 @@ dynamicScale= function(imageX, imageY) {
 	var windowX = globalWindowX;
 	var windowY = globalWindowY;
 	var windowAspect = globalAspectRatio;
+
+	/* return values */
+	var width;
+	var height;
+
+	/* if screen is too wide for image */
+	if (windowAspect > imageAspect){
+		/* Size to X, scale to Y */
+		width = windowX;
+		height = imageY/imageX * windowX; 
+	}
+
+	/* If screen is too tall for image */
+	else {
+		/* Size to Y, scale to X */
+		width = imageX/imageY * windowY;
+		height = windowY;
+
+	}
+	return [width, height];
+};
+
+
+dynamicScale2= function(imageX, imageY, windowX, windowY) {	
+// function dynamicScale(imageX, imageY){
+	/* Image size in pixels */
+	var imageAspect = imageX/imageY;
+
+	// /* User's screen size in pixels */
+	// var windowX = globalWindowX;
+	// var windowY = globalWindowY;
+	// var windowAspect = globalAspectRatio;
+
+	var windowAspect = windowX/windowY;
 
 	/* return values */
 	var width;

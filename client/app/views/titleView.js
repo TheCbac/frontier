@@ -9,6 +9,7 @@ TitleView =function() {
 	View.apply(this, arguments);
 
 	this.viewModifier = new Modifier({
+		// overflow:"auto"
 	});
 
 	this.viewModifier.sizeFrom(function(){
@@ -26,7 +27,8 @@ TitleView =function() {
 	this.backgroundImageMod = new Modifier({
 		
 		align: [0.5,1.0],
-		origin: [0.5,1.0]
+		origin: [0.5,1.0],
+		transform: Transform.translate(0,0,-1)
 	});
 
 	/* Background Image sizing Algorithm */
@@ -69,9 +71,9 @@ TitleView =function() {
 
 	this.frontierImageMod = new Modifier({
 		size:[315,true],
-		align:[0.5, 0.4],
+		align:[0.5, 0.38],
 		origin:[0.5, 0.5],
-		transform: Transform.translate(0,0,1),
+		transform: Transform.translate(0,0,2),
 	});
 
 	this.viewNode.add(this.frontierImageMod).add(this.frontierImage);
@@ -87,7 +89,7 @@ TitleView =function() {
 		size: [45,true],
 		origin:[0, 0],
 		align:[0.02, 0.02],
-		transform: Transform.translate(0,0,1),
+		transform: Transform.translate(0,0,3),
 	});
 
 	this.viewNode.add(this.frontierArrowsMod).add(this.frontierArrows);
@@ -103,7 +105,7 @@ TitleView =function() {
 		size: [true,30],
 		origin:[1.0, 0],
 		align:[0.9, 0.05],
-		transform: Transform.translate(0,0,1),
+		transform: Transform.translate(0,0,4),
 	});
 	this.viewNode.add(this.hamburgerImageMod).add(this.hamburgerImage);
 	this.hamburgerImage.pipe(this._eventOutput);
@@ -129,7 +131,7 @@ TitleView =function() {
 	this.oregonTextMod = new Modifier({
 		size: [undefined, 40],
 		origin:[0.5, 0.5],	
-		align:[0.5, 0.54],
+		align:[0.5, 0.57],
 		transform: Transform.translate(0,0,1),
 	});
 

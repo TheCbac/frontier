@@ -38,6 +38,7 @@ DatesView = function () {
 
 	this.backgroundMod = new Modifier({
 		size: [undefined, undefined],
+		transform: Transform.translate(0,0,0),
 		// origin:[0,0],
 		// align: [1,0],
 	});
@@ -67,6 +68,7 @@ DatesView = function () {
 	this.datesSurfaceMod = new Modifier({
 		size:[150,50],
 		origin:[0,0.5],
+		transform: Transform.translate(0,0,1)
 		// align:[0.05,0.5],
 	});
 
@@ -89,7 +91,7 @@ DatesView = function () {
 	/******************* Description Surface *****************************/
 
 	this.oregonDescriptionSurface = new Surface({
-		content:"Oregon has been deemed The Frontier’s 2015 adventure destination. Known for its grandeur and majesty, the Beaver State will never disappoint. If you want an experience so intertwined with the heart of nature that trees become friends, pastures transform into home and flowing water turns into motion pictures, join us as we discover this green earth.",
+		content:"Oregon has been deemed The Frontier’s 2015 adventure destination. Known for its grandeur and majesty, the Beaver State will never disappoint. If you want an experience so intertwined with the heart of nature that trees become friends, pastures transform into home, and flowing water turns into motion pictures, join us as we discover this green earth.",
 		properties:{
 			fontFamily:"gothamHTF",
 			color: "#646665",

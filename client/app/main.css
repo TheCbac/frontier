@@ -3,6 +3,14 @@
     src: url(/fonts/day_stencil.ttf);
 }
 */
+/*.famous-surface{
+	overflow: auto;
+}*/
+
+.element-style {
+	overflow: auto;
+}
+
 @font-face {
     font-family: gothamHTF;
     src: url(/fonts/GothamHTF-Book.ttf);
