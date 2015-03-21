@@ -73,7 +73,7 @@ FrontierAwaitsView = function () {
 
 	// ---------------- Description ------------------
 	this.descriptionTextSurface = new Surface({
-		content: "Conceived through countless nights of purveying in a small wayward barn south of the treacherous Yukon Territory, The Frontier represents more than just a gathering of friends. We are a unique her, stronger than the forces of nature, smarter than the average bear, more divers that a Kenyan census, and drivel like a pack of ravenous lionesses hunting a water buffalo. We cannot promise that The Frontier will lift men and women from 9-5 oppression to a utopia of blissful unknowns and constant discovery. But it pretty much will. <p>Welcome to the greatest social group you will ever join. The Frontier awaits. Are you in?</p>",
+		content: "Conceived through countless nights of purveying in a small wayward barn south of the treacherous Yukon Territory, The Frontier represents more than just a gathering of friends. We are a unique herd, stronger than the forces of nature, smarter than the average bear, more diverse that a Kenyan census, and driven like a pack of ravenous lionesses hunting a water buffalo. We cannot promise that The Frontier will lift men and women from 9-5 oppression to a utopia of blissful unknowns and constant discovery. But it pretty much will. <p>Welcome to the greatest social group you will ever join. The Frontier awaits. Are you in?</p>",
 		properties: {
 			color: "#b2b2b2",
 			// backgroundColor: "blue",

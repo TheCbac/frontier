@@ -17,15 +17,16 @@ TrailView = function () {
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
 		// return [globalWindowX, globalWindowY];
-		return [globalWindowX/globalGridX, globalWindowY];
+		// return [globalWindowX/globalGridX, globalWindowY/globalGridY];
+		return [undefined, undefined];
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
 	/******************************************************************/
 
 	/*********************** Render Controller ************************/
-	this.renderController = new RenderController();
-	this.viewNode.add(this.renderController);
+	// this.renderController = new RenderController();
+	// this.viewNode.add(this.renderController);
 	/******************************************************************/
 
 	/******************* Background Surface *****************************/
@@ -35,15 +36,16 @@ TrailView = function () {
 
 	this.backgroundMod = new Modifier({
 		//size: [undefined, undefined],
-		origin:[0.5, 0],
-		align: [0.5, 0],
+		origin:[0, 0],
+		align: [0, 0],
 		transform: Transform.translate(0,0,-1)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
-		//return dynamicScale(1050,700);
+		// return dynamicScale(1050,700);
 		// return [globalWindowX/2 , true];
-		return [undefined, undefined];
+		// return [undefined, undefined];
+		return dynamicScale2(1050,725,globalWindowX/globalGridX, globalWindowY/globalGridY);
 	});
 
 	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
@@ -62,9 +64,9 @@ TrailView = function () {
 	});
 
 	this.hoofItMod = new Modifier({
-		size: [175, 200],
+		size: [100, 200],
 		origin:[0.5, 0.5],
-		align: [0.5, 0.5],
+		align: [0.5, 0.55],
 		transform: Transform.translate(0,0,1)
 	});
 

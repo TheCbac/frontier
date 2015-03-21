@@ -2,7 +2,8 @@ globalWindowX=null;
 globalWindowY=null;
 globalAspectRatio=null;
 globalTileState=null;
-globalGridX = 3;
+globalGridX = null;
+globalGridY = null;
 
 updateWindowSize = function(){
 	globalWindowY = window.innerHeight;
@@ -12,7 +13,7 @@ updateWindowSize = function(){
 	globalAspectRatio = globalWindowX/globalWindowY;
 
 	// Deal with initial state
-	if (pastAspectRatio === null){
+	if (pastAspectRatio === null || globalGridX === null){
 		pastAspectRatio = globalAspectRatio;
 
 		if (globalAspectRatio >=1 ){
@@ -26,6 +27,10 @@ updateWindowSize = function(){
 				globalTileState =2;
 				eventHandler.emit("tileState2");
 			}
+
+			globalGridX =3;
+	 		globalGridY =1;
+	 
 		}
 
 		else {
@@ -38,6 +43,10 @@ updateWindowSize = function(){
 				eventHandler.emit("tileState1");
 				globalTileState= 1;
 				}
+
+			globalGridX = 1;
+			globalGridY = 3;
+
 		}
 	}
 	
@@ -52,6 +61,9 @@ updateWindowSize = function(){
 			eventHandler.emit("tileState2");
 			globalTileState =2;
 		}
+
+		globalGridX =3;
+	 	globalGridY =1;
 	}
 
 	else if(globalAspectRatio < 1 && pastAspectRatio >= 1){
@@ -66,9 +78,23 @@ updateWindowSize = function(){
 			globalTileState= 1;
 		}
 
+		globalGridX = 1;
+		globalGridY = 3;
+
 
 	}
 
+
+	// // set the global grid state
+	// if (globalWindowX < 900){
+	// 	globalGridX = 1;
+	// 	globalGridY=3;
+	// }
+
+	// else {
+	//  	globalGridX =3;
+	//  	globalGridY =1;
+	//  }
 
 };
 

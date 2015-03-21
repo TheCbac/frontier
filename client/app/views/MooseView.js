@@ -17,26 +17,27 @@ MooseView = function () {
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
 		// return [globalWindowX, globalWindowY];
-		return [globalWindowX/globalGridX, globalWindowY];
+		// return [globalWindowX/globalGridX, globalWindowY/globalGridY];
+		return [undefined, undefined];
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
 	/******************************************************************/
 
 	/*********************** Render Controller ************************/
-	this.renderController = new RenderController();
-	this.viewNode.add(this.renderController);
-	/*******************************************************************/
+	// this.renderController = new RenderController();
+	// this.viewNode.add(this.renderController);
+	// /*******************************************************************/
 
-	this.containerSurface = new ContainerSurface({
-	});
+	// this.containerSurface = new ContainerSurface({
+	// });
 
-	this.containerModifier = new Modifier();
+	// this.containerModifier = new Modifier();
 
-	this.containerModifier.sizeFrom(function(){
-		return [globalWindowX, globalWindowY];
-	});
-	//this.viewNode.add(this.containerSurface);
+	// this.containerModifier.sizeFrom(function(){
+	// 	return [globalWindowX, globalWindowY];
+	// });
+	// //this.viewNode.add(this.containerSurface);
 
 
 
@@ -49,20 +50,24 @@ MooseView = function () {
 		//size: [undefined, undefined],
 		origin:[0.5, 0.5],
 		align: [0.5, 0.5],
-		transform: Transform.translate(0,0,-1)
+		// origin:[1, 0],
+		// align: [1, 0],
+		transform: Transform.translate(0,0,-2)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
-		return dynamicScale2(1050,700,globalWindowX/globalGridX, globalWindowY);
+		return dynamicScale2(1050,700,globalWindowX/globalGridX, globalWindowY/globalGridY);
 		// return [globalWindowX/2 , true];
 		// return [undefined, undefined];
 	});
 
-	//this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
-	this.containerNode = this.containerSurface.add(this.backgroundMod).add(this.backgroundSurface);
+	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
 	this.backgroundSurface.pipe(this._eventOutput);
-	this.viewNode.add(this.containerModifier).add(this.containerNode);
-	this.containerSurface.pipe(this._eventOutput);
+
+	// this.containerNode = this.containerSurface.add(this.backgroundMod).add(this.backgroundSurface);
+	// this.backgroundSurface.pipe(this._eventOutput);
+	// this.viewNode.add(this.containerModifier).add(this.containerNode);
+	// this.containerSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
 

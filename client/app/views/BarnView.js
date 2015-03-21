@@ -17,15 +17,16 @@ BarnView = function () {
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
 		// return [globalWindowX, globalWindowY];
-		return [globalWindowX/globalGridX, globalWindowY];
+		// return [globalWindowX/globalGridX, globalWindowY];
+		return [undefined, undefined];
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
 	/******************************************************************/
 
 	/*********************** Render Controller ************************/
-	this.renderController = new RenderController();
-	this.viewNode.add(this.renderController);
+	// this.renderController = new RenderController();
+	// this.viewNode.add(this.renderController);
 	/******************************************************************/
 
 	/******************* Background Surface *****************************/
@@ -37,12 +38,13 @@ BarnView = function () {
 		//size: [undefined, undefined],
 		origin:[0.5, 0],
 		align: [0.5, 0],
-		transform: Transform.translate(0,0,-1)
+		transform: Transform.translate(0,0,-2)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
 		//return dynamicScale(1050,700);
 		// return [globalWindowX/2 , true];
+		// return dynamicScale2(1050,700,globalWindowX/globalGridX, globalWindowY);
 		return [undefined, undefined];
 	});
 

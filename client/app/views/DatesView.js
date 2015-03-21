@@ -91,7 +91,7 @@ DatesView = function () {
 	/******************* Description Surface *****************************/
 
 	this.oregonDescriptionSurface = new Surface({
-		content:"Oregon has been deemed The Frontier’s 2015 adventure destination. Known for its grandeur and majesty, the Beaver State will never disappoint. If you want an experience so intertwined with the heart of nature that trees become friends, pastures transform into home and flowing water turns into motion pictures, join us as we discover this green earth.",
+		content:"Oregon has been deemed The Frontier’s 2015 adventure destination. Known for its grandeur and majesty, the Beaver State will never disappoint. If you want an experience so intertwined with the heart of nature that trees become friends, pastures transform into home, and flowing water turns into motion pictures, join us as we discover this green earth.",
 		properties:{
 			fontFamily:"gothamHTF",
 			color: "#646665",

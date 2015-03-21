@@ -12,10 +12,20 @@ var RenderController 	= require('famous/views/RenderController');
 
 var mainContext = Engine.createContext();
 
-
+// Make sure that the window is sized properly once it is created
+Engine.nextTick(function(){
+	updateWindowSize();
+	pictureGridView.gridLayout.setOptions({
+		dimensions:[globalGridX, globalGridY]
+	});
+});	
 
 Engine.on('resize', function(){
 	updateWindowSize();
+	pictureGridView.gridLayout.setOptions({
+		dimensions:[globalGridX, globalGridY]
+	});
+
 });
 
 /* Create and array for the slide tiles */
@@ -74,22 +84,24 @@ rightDrawer = new RightDrawerView();
 
 var pictureGrid =[];
 
+// add the mooseView
+var mooseView = new MooseView();
+pictureGrid.push(mooseView);
+scroll.subscribe(mooseView);
+
+
 // Add the barnView to picture tiles 
 var barnView = new BarnView();
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
-// add the mooseView
-var mooseView = new MooseView();
-pictureGrid.push(mooseView);
-scroll.subscribe(mooseView);
 
 var trailView = new TrailView();
 pictureGrid.push(trailView);
 scroll.subscribe(trailView);
 
 //Picture at bottom of the screen 
-var pictureGridView = new PictureGridView();
+pictureGridView = new PictureGridView();
 pictureGridView.gridLayout.sequenceFrom(pictureGrid);
 
 tiles.push(pictureGridView);
@@ -103,10 +115,7 @@ mainContext.add(scroll);
 mainContext.add(renderController);
 
 
-// Make sure that the window is sized properly once it is created
-Engine.defer(function(){
-	updateWindowSize();
-});
+
 
 // mainContext.add(rightDrawer);
 
@@ -134,18 +143,18 @@ eventHandler.on('tileState1', function(){
 	
 });
 
-eventHandler.on('toggleDrawer',function(){
-	if (rightDrawer.state == "hidden"){
-		renderController.show(rightDrawer);
-		rightDrawer.drawerMod.setOrigin([1, 0], {duration: 1000} );
-		rightDrawer.state = "shown";
-	}
+// eventHandler.on('toggleDrawer',function(){
+// 	if (rightDrawer.state == "hidden"){
+// 		renderController.show(rightDrawer);
+// 		rightDrawer.drawerMod.setOrigin([1, 0], {duration: 1000} );
+// 		rightDrawer.state = "shown";
+// 	}
 
-	else if (rightDrawer.state == "shown"){
-		rightDrawer.drawerMod.setOrigin([0,0], {duraction: 1000 });
-		renderController.hide(rightDrawer);
-		rightDrawer.state = "hidden";
-	}
-});
+// 	else if (rightDrawer.state == "shown"){
+// 		rightDrawer.drawerMod.setOrigin([0,0], {duraction: 1000 });
+// 		renderController.hide(rightDrawer);
+// 		rightDrawer.state = "hidden";
+// 	}
+// });
 
 

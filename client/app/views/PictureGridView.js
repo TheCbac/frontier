@@ -23,7 +23,7 @@ PictureGridView = function () {
 	/******************************************************************/
 
 	this.gridLayout = new GridLayout({
-		dimensions: [globalGridX,1],
+		dimensions: [globalGridX, globalGridY],
 	});
 
 	this.viewNode.add(this.gridLayout);
