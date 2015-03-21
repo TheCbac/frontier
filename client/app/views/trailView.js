@@ -36,8 +36,8 @@ TrailView = function () {
 
 	this.backgroundMod = new Modifier({
 		//size: [undefined, undefined],
-		origin:[0.4, 0],
-		align: [0.4, 0],
+		origin:[0.4, 0.3],
+		align: [0.4, 0.3],
 		transform: Transform.translate(0,0,-5)
 	});
 
