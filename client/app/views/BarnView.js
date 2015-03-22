@@ -14,7 +14,7 @@ BarnView = function () {
 	// Create modifier
 
 	this.backgroundTrans = new TransitionableTransform();
-	
+
 	this.viewModifier = new Modifier({
 		transform: this.backgroundTrans,
 	});
@@ -26,6 +26,14 @@ BarnView = function () {
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
+
+	this.on('click', function(){
+		this.backgroundTrans.setRotate([0,2*Math.PI,0], {duration:2000}, this.resetSlide);	
+	}.bind(this));
+
+	this.resetSlide = function(){
+		this.backgroundTrans.setRotate([0,0,0], {duration:0});
+	}.bind(this);
 	/******************************************************************/
 
 	/*********************** Render Controller ************************/
@@ -62,10 +70,13 @@ BarnView = function () {
 	this.viewNode.add(this.backgroundTrans).add(this.backgroundMod).add(this.backgroundSurface);
 	this.backgroundSurface.pipe(this._eventOutput);
 
-	this.backgroundSurface.on('click', function(){
-		eventHandler.emit('flipBarn');
+	// this.backgroundSurface.on('click', function(){
+	// 	//eventHandler.emit('flipBarn');
 		
-	});
+	// }.bind(this));
+
+	// var log = console.log.bind(console, "DEBUG:");
+	// log("hello"); // 
 	/******************************************************************/
 
 	/******************* nature Surface *****************************/

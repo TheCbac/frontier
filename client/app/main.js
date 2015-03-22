@@ -148,18 +148,18 @@ eventHandler.on('tileState1', function(){
 });
 
 
-resetBarn = function(){
-	console.log("reset Barn");
-	barnView.backgroundTrans.setRotate([0,0,0], {duration:0});
-};
+// resetBarn = function(){
+// 	console.log("reset Barn");
+// 	barnView.backgroundTrans.setRotate([0,0,0], {duration:0});
+// };
 
 
-eventHandler.on('flipBarn', function(){
-	console.log("flipBarn");
-	// barnView.backgroundSurface.backgroundMod.trans.setRotate([180], {duration:100});
-	// barnView.backgroundMod.setTransform(Transform.rotateZ(Math.PI/2));
-	barnView.backgroundTrans.setRotate([0,2*Math.PI,0], {duration:2000}, resetBarn);
-});
+// eventHandler.on('flipBarn', function(){
+// 	console.log("flipBarn");
+// 	// barnView.backgroundSurface.backgroundMod.trans.setRotate([180], {duration:100});
+// 	// barnView.backgroundMod.setTransform(Transform.rotateZ(Math.PI/2));
+// 	barnView.backgroundTrans.setRotate([0,2*Math.PI,0], {duration:2000}, resetBarn);
+// });
 
 // eventHandler.on('toggleDrawer',function(){
 // 	if (rightDrawer.state == "hidden"){
