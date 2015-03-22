@@ -15,13 +15,8 @@ MooseView = function () {
 	/***************************** main view ***************************/
 	View.apply(this, arguments);
 	// Create modifier
-
-
 	this.viewModifier = new Modifier({
-		size: [undefined, undefined],
-		// transform: this.backgroundTrans
 	});
-
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
 
@@ -29,10 +24,10 @@ MooseView = function () {
 		this.flipSlide();
 	}.bind(this));
 
-
+	/* Flipping functions */
 	this.flipSlide = function(){
 		if(this.slideState == "front"){
-			this.backgroundTrans.setRotate([0,Math.PI/2,0], {duration:500}, this.startBack);
+			this.frontContainerTrans.setRotate([0,Math.PI/2,0], {duration:500}, this.startBack);
 		}
 
 		else if (this.slideState == "back"){
@@ -46,12 +41,11 @@ MooseView = function () {
 	}.bind(this);
 
 	this.startFront = function(){
-		this.backgroundTrans.setRotate([0,0,0], {duration:500});
+		this.frontContainerTrans.setRotate([0,0,0], {duration:500});
 		this.slideState = "front";
 	}.bind(this);
 
 	/******************************************************************/
-
 
 	/*********************** Render Controller ************************/
 	// this.renderController = new RenderController();
@@ -60,21 +54,21 @@ MooseView = function () {
 
 	/*********************** Container Surfaces ************************/
 
-	this.containerSurface = new ContainerSurface({
+	this.frontContainerSurface = new ContainerSurface({
 		properties: {
 			overflow:'hidden'
 		}
 	});
 
-	this.backgroundTrans = new TransitionableTransform();
+	this.frontContainerTrans = new TransitionableTransform();
 
 	this.containerMod = new Modifier({
 		origin:[0.5,0.5],
 		align: [0.5,0.5],
-		transform: this.backgroundTrans
+		transform: this.frontContainerTrans
 	});
 
-	this.containerNode =this.viewNode.add(this.containerMod).add(this.containerSurface);
+	this.containerNode =this.viewNode.add(this.containerMod).add(this.frontContainerSurface);
 
 
 		//----------------- rear container -------- //
@@ -115,7 +109,7 @@ MooseView = function () {
 	});
 
 
-	this.containerSurface.add(this.backgroundMod).add(this.backgroundSurface);
+	this.frontContainerSurface.add(this.backgroundMod).add(this.backgroundSurface);
 	this.backgroundSurface.pipe(this._eventOutput);
 
 	 		// ----------------- back of background ---------//
@@ -141,8 +135,8 @@ MooseView = function () {
 	/******************************************************************/
 
 
-	/******************* Text Surface *****************************/
-	this.natureSurface = new Surface({
+	/******************* Front Text Surface *****************************/
+	this.frontTextSurface = new Surface({
 		content: "BECOME ONE WITH NATURE",
 		properties: {
 			fontFamily: "gothamHTF",
@@ -159,8 +153,8 @@ MooseView = function () {
 		transform: Transform.translate(0,0,1)
 	});
 
-	this.containerSurface.add(this.natureMod).add(this.natureSurface);
-	this.natureSurface.pipe(this._eventOutput);
+	this.frontContainerSurface.add(this.natureMod).add(this.frontTextSurface);
+	this.frontTextSurface.pipe(this._eventOutput);
 
 
 	// -------------------- Rear text --------------//

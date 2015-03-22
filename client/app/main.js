@@ -96,13 +96,19 @@ scroll.subscribe(mooseView);
 
 
 // Add the barnView to picture tiles 
-barnView = new BarnView();
+// barnView = new BarnView();
+var barnView = new PictureTileView('/pictures/woodgrain.jpg',1050,700, "THE BROAD SIDE OF THE BARN");
+// barnView.frontTextContent = " THE Craig ";
+
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
-var trailView = new TrailView();
+// var trailView = new TrailView();
+var trailView = new PictureTileView('/pictures/trailCropped.jpeg',609,725, "HOOF IT");
 pictureGrid.push(trailView);
 scroll.subscribe(trailView);
+
+
 
 //Picture at bottom of the screen 
 pictureGridView = new PictureGridView();
