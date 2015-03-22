@@ -6,39 +6,91 @@ var Modifier 			= require('famous/core/Modifier');
 var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
 var ContainerSurface 	= require('famous/surfaces/ContainerSurface');
+var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
 MooseView = function () {
+
+	this.slideState = "front";
 
 	/***************************** main view ***************************/
 	View.apply(this, arguments);
 	// Create modifier
 	this.viewModifier = new Modifier({
 	});
-	// size view to screen
-	this.viewModifier.sizeFrom(function(){
-		// return [globalWindowX, globalWindowY];
-		// return [globalWindowX/globalGridX, globalWindowY/globalGridY];
-		return [undefined, undefined];
-	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
+
+	this.on('click', function(){
+		this.flipSlide();
+	}.bind(this));
+
+	/* Flipping functions */
+	this.flipSlide = function(){
+		if(this.slideState == "front"){
+			this.frontContainerTrans.setRotate([0,Math.PI/2,0], {duration:500}, this.startBack);
+		}
+
+		else if (this.slideState == "back"){
+			this.rearContainerTrans.setRotate([0,Math.PI/2,0], {duration:500},this.startFront);
+		}
+	}.bind(this);
+
+	this.startBack = function(){
+		this.rearContainerTrans.setRotate([0,0,0], {duration:500});
+		this.slideState = "back";
+	}.bind(this);
+
+	this.startFront = function(){
+		this.frontContainerTrans.setRotate([0,0,0], {duration:500});
+		this.slideState = "front";
+	}.bind(this);
+
 	/******************************************************************/
 
 	/*********************** Render Controller ************************/
 	// this.renderController = new RenderController();
 	// this.viewNode.add(this.renderController);
-	// /*******************************************************************/
+	/*******************************************************************/
 
-	// this.containerSurface = new ContainerSurface({
-	// });
+	/*********************** Container Surfaces ************************/
 
-	// this.containerModifier = new Modifier();
+	this.frontContainerSurface = new ContainerSurface({
+		properties: {
+			overflow:'hidden'
+		}
+	});
 
-	// this.containerModifier.sizeFrom(function(){
-	// 	return [globalWindowX, globalWindowY];
-	// });
-	// //this.viewNode.add(this.containerSurface);
+	this.frontContainerTrans = new TransitionableTransform();
 
+	this.containerMod = new Modifier({
+		origin:[0.5,0.5],
+		align: [0.5,0.5],
+		transform: this.frontContainerTrans
+	});
+
+	this.containerNode =this.viewNode.add(this.containerMod).add(this.frontContainerSurface);
+
+
+		//----------------- rear container -------- //
+
+	this.rearContainerSurface = new ContainerSurface({
+		properties: {
+			overflow: "hidden"
+		}
+	});
+
+	this.rearContainerTrans = new TransitionableTransform(
+		Transform.rotateY(Math.PI/2)
+		);
+
+	this.rearContainerMod = new Modifier({
+		origin:[0.5,0.5],
+		align: [0.5,0.5],
+		transform: this.rearContainerTrans
+	});
+
+	this.rearContainerNode = this.viewNode.add(this.rearContainerMod).add(this.rearContainerSurface);
+	/*******************************************************************/
 
 
 	/******************* Background Surface *****************************/
@@ -47,33 +99,44 @@ MooseView = function () {
 	});
 
 	this.backgroundMod = new Modifier({
-		//size: [undefined, undefined],
 		origin:[0.4, 0.6],
 		align: [0.4, 0.6],
-		// origin:[1, 0],
-		// align: [1, 0],
 		transform: Transform.translate(0,0,-3)
 	});
 
 	this.backgroundMod.sizeFrom(function(){
 		return dynamicScale2(587,700,globalWindowX/globalGridX, globalWindowY/globalGridY);
-		// return [globalWindowX/2 , true];
-		// return [undefined, undefined];
 	});
 
-	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
+
+	this.frontContainerSurface.add(this.backgroundMod).add(this.backgroundSurface);
 	this.backgroundSurface.pipe(this._eventOutput);
 
-	// this.containerNode = this.containerSurface.add(this.backgroundMod).add(this.backgroundSurface);
-	// this.backgroundSurface.pipe(this._eventOutput);
-	// this.viewNode.add(this.containerModifier).add(this.containerNode);
-	// this.containerSurface.pipe(this._eventOutput);
+	 		// ----------------- back of background ---------//
+	 this.rearSurface = new Surface({
+	 	content: "",
+	 	properties: {
+	 		backgroundColor: "#28303B"
+	 	}
+	 });
+
+	 this.rearMod = new Modifier({
+	 	origin: [0.5, 0.5],
+	 	align: [0.5, 0.5],
+	 });
+
+	 this.rearMod.sizeFrom(function() {
+		return [globalWindowX/globalGridX, globalWindowY/globalGridY];
+	 });
+
+	 this.rearContainerSurface.add(this.rearMod).add(this.rearSurface);
+	 this.rearSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
 
 
-	/******************* nature Surface *****************************/
-	this.natureSurface = new Surface({
+	/******************* Front Text Surface *****************************/
+	this.frontTextSurface = new Surface({
 		content: "BECOME ONE WITH NATURE",
 		properties: {
 			fontFamily: "gothamHTF",
@@ -90,10 +153,30 @@ MooseView = function () {
 		transform: Transform.translate(0,0,1)
 	});
 
+	this.frontContainerSurface.add(this.natureMod).add(this.frontTextSurface);
+	this.frontTextSurface.pipe(this._eventOutput);
 
-	this.viewNode.add(this.natureMod).add(this.natureSurface);
-	this.natureSurface.pipe(this._eventOutput);
 
+	// -------------------- Rear text --------------//
+ 	this.rearTextSurface = new Surface({
+ 		content:"WHITE WATER RAFTING",
+ 		size: [100,200],
+ 		properties: {
+ 			fontFamily:"gothamHTF",
+ 			color:"#b2b2b2",
+ 			fontSize:"1.5em",
+ 			textAlign:"center",
+ 		}
+ 	});
+
+ 	this.rearTextMod = new Modifier({
+ 		origin:[0.5,0.5],
+ 		align:[0.5,0.5]
+
+ 	});
+
+ 	this.rearContainerSurface.add(this.rearTextMod).add(this.rearTextSurface);
+ 	this.rearTextSurface.pipe(this._eventOutput);
 	/******************************************************************/
 
 
