@@ -53,6 +53,11 @@ updateWindowSize = function(){
 	// If there was a transition over 1, change the globalTileState
 	if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
 		
+		// simplistic way of avoiding overflow bug
+		if (scroll.getPosition() > 266){
+			// console.log("Over Screen");
+			scroll.setPosition(100);
+		}
 		if (globalWindowY <= 530){
 				eventHandler.emit("tileState1");
 				globalTileState= 1;
@@ -83,19 +88,6 @@ updateWindowSize = function(){
 
 
 	}
-
-
-	// // set the global grid state
-	// if (globalWindowX < 900){
-	// 	globalGridX = 1;
-	// 	globalGridY=3;
-	// }
-
-	// else {
-	//  	globalGridX =3;
-	//  	globalGridY =1;
-	//  }
-
 };
 
 

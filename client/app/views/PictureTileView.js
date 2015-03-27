@@ -8,7 +8,7 @@ var RenderNode 			= require('famous/core/RenderNode');
 var ContainerSurface 	= require('famous/surfaces/ContainerSurface');
 var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
-PictureTileView = function (src, imageX, imageY, frontTextContent) {
+PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextContent) {
 
 	/* True Constants */
 	this.imageSource = src;
@@ -49,7 +49,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent) {
 	this.frontTextModAlign			= [0.5, 0.55];
 	this.frontTextModTrans			= Transform.translate(0,0,1);
 	/* Front Text Variables */
-	this.rearTextContent			= "rearTextContent";
+	this.rearTextContent			= rearTextContent;
 	this.rearTextProperties 		= {fontFamily: "gothamHTF",
 											color: "white",
 										 fontSize: "2em",

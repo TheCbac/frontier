@@ -90,21 +90,19 @@ var pictureGrid =[];
 
 
 // add the mooseView
-var mooseView = new MooseView();
+//var mooseView = new MooseView();
+var mooseView = new PictureTileView('/pictures/mooseCropped.jpeg', 587,700, "BECOME ONE WITH NAUTRE", "WHITE WATER RAFTING");
 pictureGrid.push(mooseView);
 scroll.subscribe(mooseView);
 
 
 // Add the barnView to picture tiles 
-// barnView = new BarnView();
-var barnView = new PictureTileView('/pictures/woodgrain.jpg',1050,700, "THE BROAD SIDE OF THE BARN");
-// barnView.frontTextContent = " THE Craig ";
-
+var barnView = new PictureTileView('/pictures/woodgrain.jpg',1050,700, "THE BROAD SIDE OF THE BARN","BARN NIGHTS");
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
 // var trailView = new TrailView();
-var trailView = new PictureTileView('/pictures/trailCropped.jpeg',609,725, "HOOF IT");
+var trailView = new PictureTileView('/pictures/trailCropped.jpeg',609,725, "HOOF IT", "CASCADE DAZE");
 pictureGrid.push(trailView);
 scroll.subscribe(trailView);
 
