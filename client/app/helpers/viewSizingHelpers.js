@@ -4,6 +4,8 @@ globalAspectRatio=null;
 globalTileState=null;
 globalGridX = null;
 globalGridY = null;
+globalTileNum = 4;
+
 
 updateWindowSize = function(){
 	globalWindowY = window.innerHeight;
@@ -28,7 +30,7 @@ updateWindowSize = function(){
 				eventHandler.emit("tileState2");
 			}
 
-			globalGridX =3;
+			globalGridX =globalTileNum;
 	 		globalGridY =1;
 	 
 		}
@@ -45,7 +47,7 @@ updateWindowSize = function(){
 				}
 
 			globalGridX = 1;
-			globalGridY = 3;
+			globalGridY = globalTileNum;
 
 		}
 	}
@@ -67,7 +69,7 @@ updateWindowSize = function(){
 			globalTileState =2;
 		}
 
-		globalGridX =3;
+		globalGridX =globalTileNum;
 	 	globalGridY =1;
 	}
 
@@ -84,7 +86,7 @@ updateWindowSize = function(){
 		}
 
 		globalGridX = 1;
-		globalGridY = 3;
+		globalGridY = globalTileNum;
 
 
 	}
