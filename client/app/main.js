@@ -110,6 +110,13 @@ pictureGrid.push(trailView);
 scroll.subscribe(trailView);
 
 
+//var grapeView = new MooseView();
+var grapeView = new PictureTileView('/pictures/grapes.jpeg', 
+	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE");
+pictureGrid.push(grapeView);
+scroll.subscribe(grapeView);
+
+
 
 //Picture at bottom of the screen 
 pictureGridView = new PictureGridView();

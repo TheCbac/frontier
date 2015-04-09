@@ -44,7 +44,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 											color: "white",
 										 fontSize: "2em",
 										textAlign: "center",};
-	this.frontTextModSize			= [150, 200 ];
+	this.frontTextModSize			= [175, 175 ];
 	this.frontTextModOrigin			= [0.5, 0.5 ];
 	this.frontTextModAlign			= [0.5, 0.55];
 	this.frontTextModTrans			= Transform.translate(0,0,1);
