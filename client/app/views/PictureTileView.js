@@ -8,12 +8,14 @@ var RenderNode 			= require('famous/core/RenderNode');
 var ContainerSurface 	= require('famous/surfaces/ContainerSurface');
 var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
-PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextContent) {
+PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTextContent) {
 
 	/* True Constants */
 	this.imageSource = src;
 	this.imageX = imageX;
 	this.imageY = imageY;
+
+	this.tileName =name; 
 
 	/* should be refactored to make the default
 	arguments depend on a factory input in the 
@@ -31,7 +33,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	/* Front Background variables */
 	this.frontBackgroundModOrigin 	= [0.5, 0.5];
 	this.frontBackgroundModAlign 	= [0.5, 0.5];
-	this.frontBackgroundTrans		= Transform.translate(0,0,-3);
+	// this.frontBackgroundTrans		= 
 	/* Rear Background  variables */
 	this.rearBackgroundColor 		= "#28303B";
 	this.rearBackgroundModOrigin 	= [0.5, 0.5];
@@ -74,6 +76,30 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	this.on('click', function(){
 		this.flipSlide();
 	}.bind(this));
+
+	this.on('mouseenter', function(event){
+		// console.log("hover");
+		debugger
+		globalActiveTile = this.tileName;
+		this.zoom();
+
+	});
+
+	this.on('mouseleave', function(){
+
+		if (globalActiveTile == this.tileName){
+			this.unzoom();
+		}
+	});
+
+	/* Zoom function */
+	this.zoom = function(){
+		this.frontBackgroundTrans.setScale([1.1,1.1], {duration:100});
+	};
+
+	this.unzoom=function(){
+		this.frontBackgroundTrans.setScale([1,1], {duration:100});
+	};
 
 	/* Flipping functions */
 	this.flipSlide = function(){
@@ -130,6 +156,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		}
 	});
 
+
 	this.rearContainerTrans = new TransitionableTransform(
 		Transform.rotateY(Math.PI/2)
 		);
@@ -149,6 +176,11 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		content: 	this.imageSource,
 	});
 
+	this.frontBackgroundTrans = new TransitionableTransform(
+		Transform.translate(0,0,-3)
+		// Transform.scale([1,1])
+		);
+	
 	this.frontBackgroundMod = new Modifier({
 		origin: 	this.frontBackgroundModOrigin,
 		align: 		this.frontBackgroundModAlign,
@@ -201,6 +233,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		align:  	this.frontTextModAlign,
 		transform:  this.frontTextModTrans,
 	});
+
 
 	this.frontContainerSurface.add(this.frontTextMod).add(this.frontTextSurface);
 	this.frontTextSurface.pipe(this._eventOutput);

@@ -5,6 +5,7 @@ globalTileState=null;
 globalGridX = null;
 globalGridY = null;
 globalTileNum = 4;
+globalActiveTile = null;
 
 
 updateWindowSize = function(){

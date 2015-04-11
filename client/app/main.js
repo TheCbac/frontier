@@ -69,19 +69,6 @@ tiles.push(datesView);
 scroll.subscribe(datesView);
 
 
-// /* Third Slide - Mist rocks */
-// var mistRocksView = new MistRocksView();
-// tiles.push(mistRocksView);
-// scroll.subscribe(mistRocksView);
-
-
-rightDrawer = new RightDrawerView();
-
-
-// var mooseView = new MooseView();
-// tiles.push(mooseView);
-// scroll.subscribe(mooseView);
-
 
 var pictureGrid =[];
 
@@ -91,27 +78,27 @@ var pictureGrid =[];
 
 // add the mooseView
 //var mooseView = new MooseView();
-var mooseView = new PictureTileView('/pictures/mooseCropped.jpeg', 
+var mooseView = new PictureTileView('mooseTile', '/pictures/mooseCropped.jpeg', 
 	587,700, "BECOME ONE WITH NAUTRE", "WHITE WATER RAFTING");
 pictureGrid.push(mooseView);
 scroll.subscribe(mooseView);
 
 
 // Add the barnView to picture tiles 
-var barnView = new PictureTileView('/pictures/woodgrain.jpg',
+var barnView = new PictureTileView('barnTile','/pictures/woodgrain.jpg',
 	1050,700, "THE BROAD SIDE OF THE BARN","BARN NIGHTS");
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
 // var trailView = new TrailView();
-var trailView = new PictureTileView('/pictures/trailCropped.jpeg',
+var trailView = new PictureTileView('trailTile','/pictures/trailCropped.jpeg',
 	609,725, "HOOF IT", "CASCADE DAZE");
 pictureGrid.push(trailView);
 scroll.subscribe(trailView);
 
 
 //var grapeView = new MooseView();
-var grapeView = new PictureTileView('/pictures/grapes.jpeg', 
+var grapeView = new PictureTileView('grapeTile' ,'/pictures/grapes.jpeg', 
 	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE");
 pictureGrid.push(grapeView);
 scroll.subscribe(grapeView);
@@ -154,5 +141,9 @@ eventHandler.on('tileState1', function(){
 	frontierAwaitsView.renderController.show(frontierAwaitsView.pullDownImage, {duration :0} );
 	datesView.renderController.show(datesView.pullDownImage, {duration :0} );
 	
+});
+
+eventHandler.on('goToSignUp', function(){
+	scroll.goToPage(4);
 });
 
