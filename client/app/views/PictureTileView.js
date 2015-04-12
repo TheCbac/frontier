@@ -78,7 +78,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 		this.flipSlide();
 	}.bind(this));
 
-	this.on('mouseenter', function(event){
+	this.on('mouseover', function(event){
 		// console.log("hover");
 
 		globalActiveTile = this.tileName;
@@ -86,7 +86,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 
 	});
 
-	this.on('mouseleave', function(){
+	this.on('mouseout', function(){
 
 		if (globalActiveTile == this.tileName){
 			this.unzoom();
@@ -192,7 +192,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 		// var test = dynamicScale2(this.imageX, this.imageY, this.sizeX, globalWindowY/globalGridY);
 		this.sizeY = globalWindowY/globalGridY;
 		this.sizeX = globalWindowX/globalGridX;
-		
+
 		var test = dynamicScale2(this.imageX, this.imageY, this.sizeX, this.sizeY);
 		// console.log(this.imageX + "," + this.imageY);
 		// console.log(test);
