@@ -23,6 +23,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 
 	/* add all, OriginFrom function */ 
 
+
 	/* Front container variables */
 	this.frontContainerModOrigin 	= [0.5, 0.5];
 	this.frontContainerModAlign 	= [0.5, 0.5];
@@ -79,7 +80,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 
 	this.on('mouseenter', function(event){
 		// console.log("hover");
-		debugger
+
 		globalActiveTile = this.tileName;
 		this.zoom();
 
@@ -188,7 +189,11 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	});
 
 	this.frontBackgroundMod.sizeFrom(function(){
-		var test = dynamicScale2(this.imageX, this.imageY,globalWindowX/globalGridX, globalWindowY/globalGridY);
+		// var test = dynamicScale2(this.imageX, this.imageY, this.sizeX, globalWindowY/globalGridY);
+		this.sizeY = globalWindowY/globalGridY;
+		this.sizeX = globalWindowX/globalGridX;
+		
+		var test = dynamicScale2(this.imageX, this.imageY, this.sizeX, this.sizeY);
 		// console.log(this.imageX + "," + this.imageY);
 		// console.log(test);
 		return test;

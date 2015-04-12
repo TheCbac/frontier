@@ -16,7 +16,7 @@ PictureGridView = function () {
 	});
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
-		return [globalWindowX, globalWindowY];
+		return [globalWindowX, 0.75*globalWindowY];
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);

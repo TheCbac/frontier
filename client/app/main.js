@@ -105,7 +105,7 @@ scroll.subscribe(grapeView);
 
 
 
-//Picture at bottom of the screen 
+//Pictures at bottom of the screen 
 pictureGridView = new PictureGridView();
 pictureGridView.gridLayout.sequenceFrom(pictureGrid);
 
@@ -113,7 +113,15 @@ tiles.push(pictureGridView);
 scroll.subscribe(pictureGridView);
 
 
+// Sign up view
+signUpView = new SignUpView();
+tiles.push(signUpView);
+scroll.subscribe(signUpView);
 
+// Footer view
+footerView = new FooterView();
+tiles.push(footerView);
+scroll.subscribe(footerView);
 
 /* Crete the main context */
 mainContext.add(scroll);
