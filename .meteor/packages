@@ -6,3 +6,5 @@
 
 meteor-platform
 raix:famono
+autopublish
+iron:router

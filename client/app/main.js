@@ -124,8 +124,16 @@ tiles.push(footerView);
 scroll.subscribe(footerView);
 
 /* Crete the main context */
-mainContext.add(scroll);
-mainContext.add(renderController);
+Template.landingPage.helpers({
+	content: function(){
+		mainContext.add(scroll);
+		// mainContext.add(renderController);
+	}
+});
+// mainContext.add(scroll);
+// mainContext.add(renderController);
+
+
 
 
 

@@ -32,7 +32,7 @@ DatesView = function () {
 	this.backgroundSurface = new Surface({
 		content: "",
 		properties: {
-			backgroundColor: "white"
+			backgroundColor: "#E2DCDC"
 		}
 	});
 

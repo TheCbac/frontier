@@ -6,6 +6,8 @@ var Modifier 			= require('famous/core/Modifier');
 var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
 var InputSurface 		= require('famous/surfaces/InputSurface');
+var MouseSync 			= require('famous/inputs/MouseSync');
+
 SignUpView = function () {
 	View.apply(this, arguments);
 
@@ -122,9 +124,6 @@ SignUpView = function () {
 		size: [500,50]
 	});
 
-	this.emailSurface.on('click', function(){
-		eventHandler.emit('goToSignUp');
-	});
 
 	this.viewNode.add(this.emailMod).add(this.emailSurface);
 	this.emailSurface.pipe(this._eventOutput);
@@ -155,9 +154,45 @@ SignUpView = function () {
 		size: [185,50]
 	});
 
-	this.joinSurface.on('click', function(){
-		eventHandler.emit('goToSignUp');
-	});
+	this.mouseSync = new MouseSync();
+	this.joinSurface.pipe(this.mouseSync);
+
+	this.mouseSync.on('start', function(event){
+		this.joinSurface.setProperties({
+			backgroundColor:"#345F37",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+	}.bind(this));
+
+	this.mouseSync.on('end', function(event){
+		this.joinSurface.setProperties({
+			backgroundColor:"#569F5B",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+
+		var emailAdd = this.emailSurface.getValue();
+		console.log(emailAdd);
+
+		emailCollection.insert({email:emailAdd});
+	}.bind(this));
+
+	this.joinSurface.on('mouseenter', function(){
+		this.joinSurface.setProperties({
+			backgroundColor:"#569F5B",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+	}.bind(this));
+
+	this.joinSurface.on('mouseleave', function(){
+		this.joinSurface.setProperties({
+			backgroundColor:"#28303B",
+			color:"#569F5B",
+		});
+	}.bind(this));
+
 
 	this.viewNode.add(this.joinMod).add(this.joinSurface);
 	this.joinSurface.pipe(this._eventOutput);
@@ -175,20 +210,20 @@ SignUpView = function () {
 		transform: Transform.translate(0,0,1),
 	});
 
-	// Add the modifier to the pullDownNode 
-	this.pullDownNode = new RenderNode(this.pullDownImageMod);
-	// Add a controller to the pulldown node
-	this.pullDownNode.add(this.renderController);
-	//add the pulldownNode to the view
-	this.viewNode.add(this.pullDownNode);
+	// // Add the modifier to the pullDownNode 
+	// this.pullDownNode = new RenderNode(this.pullDownImageMod);
+	// // Add a controller to the pulldown node
+	// this.pullDownNode.add(this.renderController);
+	// //add the pulldownNode to the view
+	// this.viewNode.add(this.pullDownNode);
 
-	this.pullDownImage.pipe(this._eventOutput);
+	// this.pullDownImage.pipe(this._eventOutput);
 
 	
-	//var eventHandler = new EventHandler();
-	this.pullDownImage.on('click', function(event){
-		eventHandler.emit('pullDownClicked');
-	});
+	// //var eventHandler = new EventHandler();
+	// this.pullDownImage.on('click', function(event){
+	// 	eventHandler.emit('pullDownClicked');
+	// });
 	/******************************************************************/
 
 

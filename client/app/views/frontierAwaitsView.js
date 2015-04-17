@@ -5,6 +5,7 @@ var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
 var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
+var MouseSync 			= require('famous/inputs/MouseSync');
 
 FrontierAwaitsView = function () {
 	View.apply(this, arguments);
@@ -120,6 +121,45 @@ FrontierAwaitsView = function () {
 		align: 	[0.5, 0.8],
 		size: [185,50]
 	});
+
+	this.mouseSync = new MouseSync();
+	this.signUpSurface.pipe(this.mouseSync);
+
+	this.mouseSync.on('start', function(event){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#345F37",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+	}.bind(this));
+
+	this.mouseSync.on('end', function(event){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#569F5B",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+
+		this.signUpSurface.setProperties({
+			backgroundColor:"#28303B",
+			color:"#569F5B",
+		});
+	}.bind(this));
+
+	this.signUpSurface.on('mouseenter', function(){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#569F5B",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+	}.bind(this));
+
+	this.signUpSurface.on('mouseleave', function(){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#28303B",
+			color:"#569F5B",
+		});
+	}.bind(this));
 
 	this.signUpSurface.on('click', function(){
 		eventHandler.emit('goToSignUp');
