@@ -28,33 +28,6 @@ PictureGridView = function () {
 
 	this.viewNode.add(this.gridLayout);
 	this.gridLayout.pipe(this._eventOutput);
-	/*********************** Render Controller ************************/
-	// this.renderController = new RenderController();
-	// this.viewNode.add(this.renderController);
-	/******************************************************************/
-
-	/******************* Background Surface *****************************/
-	// this.backgroundSurface = new Surface({
-	// 	content: "",
-	// 	properties: {
-	// 		backgroundColor: "white"
-	// 	}
-	// });
-
-	// this.backgroundMod = new Modifier({
-	// 	size: [undefined, undefined],
-	// 	// origin:[0,0],
-	// 	// align: [1,0],
-	// });
-
-
-	// this.ViewewNode.add(this.backgroundMod).add(this.backgroundSurface);
-	// this.backgroundSurface.pipe(this._eventOutput);
-
-	// this.backgroundSurface.on('click', function(event){
-	// 	eventHandler.emit('');
-	// });
-	/******************************************************************/
 
 
 };

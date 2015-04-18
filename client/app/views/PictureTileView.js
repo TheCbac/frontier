@@ -75,22 +75,49 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	this.viewNode = this.add(this.viewModifier);
 
 	this.on('click', function(){
+		// this.unzoom();
+		// this.enter=null;
+		// this.exit=null;
 		this.flipSlide();
 	}.bind(this));
 
+
+	/* The transition logic is extrememly hackish */
 	this.on('mouseover', function(event){
 		// console.log("hover");
+		if(event.currentTarget.attributes.src){
+			this.enter = event.currentTarget.attributes.src.nodeValue;	
+			// console.log(this.enter);
+		}
 
-		globalActiveTile = this.tileName;
-		this.zoom();
+
+		
+		//globalActiveTile = this.tileName;
+		if (this.enter !== undefined){
+			this.zoom();
+		}
 
 	});
 
 	this.on('mouseout', function(){
+		if (event.relatedTarget && event.relatedTarget.attributes.class.ownerElement.offsetParent){
+			if(event.relatedTarget.attributes.class.ownerElement.offsetParent.firstChild.attributes.src){
+				this.exit = event.relatedTarget.attributes.class.ownerElement.offsetParent.firstChild.attributes.src.nodeValue;
+			}
+			else{
+				this.unzoom();
+			}
+			// console.log("mouseOut: "+this.exit);
+		}
+		
+		// debugger
+		
+		//if (globalActiveTile == this.tileName){
+		if (this.exit != this.enter){
 
-		if (globalActiveTile == this.tileName){
 			this.unzoom();
 		}
+		//}
 	});
 
 	/* Zoom function */
@@ -109,6 +136,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 		}
 
 		else if (this.slideState == "back"){
+			this.frontContainerTrans.setRotate([0,Math.PI/2,0], {duration:0});
 			this.rearContainerTrans.setRotate([0,Math.PI/2,0], {duration:500},this.startFront);
 		}
 	}.bind(this);
@@ -116,9 +144,12 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	this.startBack = function(){
 		this.rearContainerTrans.setRotate([0,0,0], {duration:500});
 		this.slideState = "back";
+		this.frontContainerTrans.setRotate([0,0,0], {duration:500});
+		this.frontContainerTrans.setTranslate([0,0,-5], {duration:0});
 	}.bind(this);
 
 	this.startFront = function(){
+		
 		this.frontContainerTrans.setRotate([0,0,0], {duration:500});
 		this.slideState = "front";
 	}.bind(this);
@@ -181,6 +212,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 		Transform.translate(0,0,-3)
 		// Transform.scale([1,1])
 		);
+	this.frontBackgroundTrans.setScale([1,1], {duration:0});
 	
 	this.frontBackgroundMod = new Modifier({
 		origin: 	this.frontBackgroundModOrigin,
