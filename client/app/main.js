@@ -31,16 +31,6 @@ Engine.on('resize', function(){
 
 /* Create and array for the slide tiles */
 var tiles = [];
-/* Create the scrollview */
-// scroll = new Scrollview({
-// 	// paginated:true,
-// 	//speedLimit: 0.9,
-// 	// pageStopSpeed: 0.1,
-// 	//drag: 10,
-// 	// pagePeriod: 1,
-// 	// pageDamp: 2,
-// });
-//scroll = new ScrollContainer();
 scroll = new Scrollview();
 scroll.sequenceFrom(tiles);
 
@@ -98,7 +88,7 @@ scroll.subscribe(trailView);
 
 
 //var grapeView = new MooseView();
-var grapeView = new PictureTileView('grapeTile' ,'/pictures/grapes.jpeg', 
+var grapeView = new PictureTileView('grapeTile' ,'/pictures/grapes_compressed.jpeg', 
 	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE");
 pictureGrid.push(grapeView);
 scroll.subscribe(grapeView);
