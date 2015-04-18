@@ -175,7 +175,8 @@ SignUpView = function () {
 		var emailAdd = this.emailSurface.getValue();
 		console.log(emailAdd);
 
-		emailCollection.insert({email:emailAdd});
+		Meteor.call('insertEmail',emailAdd);
+		//emailCollection.insert({email:emailAdd});
 	}.bind(this));
 
 	this.joinSurface.on('mouseenter', function(){

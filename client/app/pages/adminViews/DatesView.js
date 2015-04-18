@@ -142,6 +142,37 @@ DatesView = function () {
 	/******************************************************************/
 
 
+	/******************* Pulldown arrow image ************************/
+	this.pullDownImage = new ImageSurface({
+		content:"/pictures/pulldown.png",
+		size: [50, true]
+	});
+
+	this.pullDownImageMod = new  Modifier({
+		origin: [0.5,1.0],
+		align: [0.5,0.95],
+		transform: Transform.translate(0,0,1),
+	});
+
+	// Add the modifier to the pullDownNode 
+	// this.pullDownNode = new RenderNode(this.pullDownImageMod);
+	// // Add a controller to the pulldown node
+	// this.pullDownNode.add(this.renderController);
+	// //add the pulldownNode to the view
+	// this.viewNode.add(this.pullDownNode);
+
+	// this.renderController.show(this.pullDownImage);
+
+	// this.pullDownImage.pipe(this._eventOutput);
+
+	
+	// //var eventHandler = new EventHandler();
+	// this.pullDownImage.on('click', function(event){
+	// 	eventHandler.emit('pullDownClicked');
+	// });
+	/******************************************************************/
+
+
 
 };
 

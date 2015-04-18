@@ -123,7 +123,7 @@ footerView = new FooterView();
 tiles.push(footerView);
 scroll.subscribe(footerView);
 
-/* Crete the main context */
+/* Create the main context */
 Template.landingPage.helpers({
 	content: function(){
 		mainContext.add(scroll);
@@ -132,8 +132,6 @@ Template.landingPage.helpers({
 });
 // mainContext.add(scroll);
 // mainContext.add(renderController);
-
-
 
 
 
@@ -162,4 +160,6 @@ eventHandler.on('tileState1', function(){
 eventHandler.on('goToSignUp', function(){
 	scroll.goToPage(4);
 });
+
+
 

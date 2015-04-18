@@ -7,7 +7,7 @@ var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
 
 
-EmptyView = function () {
+EmailCollectionView = function (email) {
 
 	/***************************** main view ***************************/
 	View.apply(this, arguments);
@@ -16,7 +16,7 @@ EmptyView = function () {
 	});
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
-		return [window.innerWidth, window.innerHeight/2];
+		return [window.innerWidth, 25];
 	});
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
@@ -25,9 +25,9 @@ EmptyView = function () {
 
 	/******************* Background Surface *****************************/
 	this.backgroundSurface = new Surface({
-		content: "",
+		content: email,
 		properties: {
-			backgroundColor: "white"
+			// backgroundColor: 
 		}
 	});
 
@@ -49,7 +49,7 @@ EmptyView = function () {
 
 };
 
-EmptyView.prototype = Object.create(View.prototype);
-EmptyView.prototype.constructor = EmptyView;
+EmailCollectionView.prototype = Object.create(View.prototype);
+EmailCollectionView.prototype.constructor = EmailCollectionView;
 
-EmptyView.DEFAULT_OPTIONS = {};
+EmailCollectionView.DEFAULT_OPTIONS = {};

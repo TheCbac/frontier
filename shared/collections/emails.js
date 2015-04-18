@@ -5,5 +5,11 @@ emailCollection.allow({
 		return true;
 	},
 
+	remove: function(userId){
+		user = Meteor.users.findOne({_id:userId});
+		return (user.profile.role == 'admin');
+	}
 
 });
+
+
