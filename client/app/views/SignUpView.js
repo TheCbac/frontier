@@ -7,7 +7,7 @@ var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
 var InputSurface 		= require('famous/surfaces/InputSurface');
 var MouseSync 			= require('famous/inputs/MouseSync');
-
+var StateModifier 		= require('famous/modifiers/StateModifier');
 SignUpView = function () {
 	View.apply(this, arguments);
 
@@ -117,6 +117,11 @@ SignUpView = function () {
 		},
 	});
 
+	this.emailSurface.on("click", function(){
+		this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,-1), 
+														{duration:0});
+	}.bind(this));
+
 	this.emailMod = new Modifier({
 		transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
@@ -172,11 +177,32 @@ SignUpView = function () {
 			color:"#28303B",
 		});
 
-		var emailAdd = this.emailSurface.getValue();
-		console.log(emailAdd);
+		var emailAdd = this.emailSurface.getValue().toLowerCase();
+		// console.log(emailAdd);
 
-		Meteor.call('insertEmail',emailAdd);
-		//emailCollection.insert({email:emailAdd});
+		//regex for email address
+		test = emailAdd.search(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z0-9]{2,4}/);
+
+		if (test === 0){
+			this.acceptanceTextSurface.setContent("Your email has been recorded!");
+			this.acceptanceTextSurface.setProperties({
+				color:"#569F5B",
+			});
+			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
+														{duration:0});
+			Meteor.call('insertEmail',emailAdd);
+			// console.log("valid email");
+		}
+		else{
+			// console.log("invalid email");
+			this.acceptanceTextSurface.setContent("Invalid email");
+			this.acceptanceTextSurface.setProperties({
+				color:"red",
+			});
+			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
+														{duration:0});
+		}
+
 	}.bind(this));
 
 	this.joinSurface.on('mouseenter', function(){
@@ -199,6 +225,35 @@ SignUpView = function () {
 	this.joinSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
+
+	// ---------------- Description ------------------
+	this.acceptanceTextSurface = new Surface({
+		content: "Your email has been recorded!",
+		size:[500,true],
+		properties: {
+			color: "#569F5B",
+			// backgroundColor: "blue",
+			fontSize: "0.8em",
+			fontFamily:"gothamHTF",
+			textAlign: "left",
+			
+		}
+	});
+
+	this.acceptanceTextSurfaceMod = new StateModifier({
+		transform: Transform.translate(0,0,-1),
+		origin: [0.5, 0.5],
+		align: 	[0.5, 0.63],
+	});
+
+	// this.acceptanceTextSurfaceMod.sizeFrom( function(){
+	// 	return [500, true];
+	// 	//return [window.innerWidth - 100, true];
+	// });
+
+	this.viewNode.add(this.acceptanceTextSurfaceMod).add(this.acceptanceTextSurface);
+	this.acceptanceTextSurface.pipe(this._eventOutput);
+
 	/******************* Pulldown arrow image ************************/
 	this.pullDownImage = new ImageSurface({
 		content:"/pictures/pulldown.png",

@@ -13,7 +13,7 @@ Meteor.publish('emailList', function(){
 
 	// return emailCollection.find();
 	// console.log(Meteor.user().profile.role);
-	if (user){
+	if (user && user.profile !== undefined){
 		if (user.profile.role=='admin'){
 			return emailCollection.find();
 		}
