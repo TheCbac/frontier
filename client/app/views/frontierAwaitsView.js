@@ -63,7 +63,7 @@ FrontierAwaitsView = function () {
 	this.titleTextSurfaceMod = new Modifier({
 		transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
-		align: 	[0.5, 0.1],
+		// align: 	[0.5, 0.1],
 	});
 
 	this.titleTextSurfaceMod.sizeFrom( function(){

@@ -117,6 +117,7 @@ scroll.subscribe(footerView);
 Template.landingPage.helpers({
 	content: function(){
 		mainContext.add(scroll);
+		updateWindowSize();
 		// mainContext.add(renderController);
 	}
 });

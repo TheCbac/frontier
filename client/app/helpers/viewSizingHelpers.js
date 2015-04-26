@@ -1,7 +1,7 @@
 globalWindowX=null;
 globalWindowY=null;
 globalAspectRatio=null;
-globalTileState=null;
+globalTileState=1;
 globalGridX = null;
 globalGridY = null;
 globalTileNum = 4;
@@ -90,6 +90,10 @@ updateWindowSize = function(){
 		globalGridY = globalTileNum;
 
 
+	}
+
+	else{
+		// globalTileState=1;
 	}
 };
 

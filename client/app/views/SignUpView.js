@@ -137,6 +137,10 @@ SignUpView = function () {
 	this.emailInputSurface.on("click", function(){
 		this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,-1), 
 														{duration:0});
+		// globalTileState =1;
+		// if(globalTileState ==1){
+		// 	this.backgroundSurfaceMod
+		// }
 	}.bind(this));
 
 	this.emailInputMod = new Modifier({
@@ -263,10 +267,10 @@ SignUpView = function () {
 
 	/******************************************************************/
 
-	// ---------------- Description ------------------
+	// ---------------- Acceptance text ------------------
 	this.acceptanceTextSurface = new Surface({
 		content: "Your email has been recorded!",
-		size:[500,true],
+		size:[200,25],
 		properties: {
 			color: "#569F5B",
 			// backgroundColor: "blue",
@@ -277,10 +281,20 @@ SignUpView = function () {
 		}
 	});
 
-	this.acceptanceTextSurfaceMod = new StateModifier({
+	this.acceptanceTextSurfaceMod = new Modifier({
 		transform: Transform.translate(0,0,-1),
-		origin: [0.5, 0.5],
+		origin: [0, 0.5],
 		align: 	[0.5, 0.64],
+	});
+
+	this.acceptanceTextSurfaceMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.33,0.68];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.2,0.95];
+		}
 	});
 
 
