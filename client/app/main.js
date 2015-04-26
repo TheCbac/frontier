@@ -69,27 +69,27 @@ var pictureGrid =[];
 // add the mooseView
 //var mooseView = new MooseView();
 var mooseView = new PictureTileView('mooseTile', '/pictures/mooseCropped.jpeg', 
-	587,700, "BECOME ONE WITH NAUTRE", "WHITE WATER RAFTING");
+	587,700, "BECOME ONE WITH NAUTRE", "WHITE WATER RAFTING",0.2, 250, 0.2, 250);
 pictureGrid.push(mooseView);
 scroll.subscribe(mooseView);
 
 
 // Add the barnView to picture tiles 
 var barnView = new PictureTileView('barnTile','/pictures/woodgrain.jpg',
-	1050,700, "THE BROAD SIDE OF THE BARN","BARN NIGHTS");
+	1050,700, "THE BROAD SIDE OF THE BARN","BARN NIGHTS", 0.2, 300, 0.3, 250);
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
 // var trailView = new TrailView();
 var trailView = new PictureTileView('trailTile','/pictures/trailCropped.jpeg',
-	609,725, "HOOF IT", "CASCADE DAZE");
+	609,725, "HOOF IT", "CASCADE DAZE", 0.35, 175, 0.2, 250);
 pictureGrid.push(trailView);
 scroll.subscribe(trailView);
 
 
 //var grapeView = new MooseView();
-var grapeView = new PictureTileView('grapeTile' ,'/pictures/grapes_compressed.jpeg', 
-	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE");
+var grapeView = new PictureTileView('grapeTile' ,'/pictures/grapes_compressed.jpg', 
+	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE", 0.1, 200, 0.2, 250);
 pictureGrid.push(grapeView);
 scroll.subscribe(grapeView);
 

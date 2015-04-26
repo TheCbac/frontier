@@ -70,6 +70,16 @@ FrontierAwaitsView = function () {
 		return [globalWindowX, true];
 	});
 
+	this.titleTextSurfaceMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.1];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.05];
+		}
+	});
+
 	this.viewNode.add(this.titleTextSurfaceMod).add(this.titleTextSurface);
 	this.titleTextSurface.pipe(this._eventOutput);
 
@@ -94,6 +104,17 @@ FrontierAwaitsView = function () {
 	this.descriptionTextSurfaceMod.sizeFrom( function(){
 		return [0.75* globalWindowX, true];
 		//return [window.innerWidth - 100, true];
+	});
+
+	this.descriptionTextSurfaceMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.3];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.2
+			];
+		}
 	});
 
 	this.viewNode.add(this.descriptionTextSurfaceMod).add(this.descriptionTextSurface);

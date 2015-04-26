@@ -50,6 +50,10 @@ FooterView =function() {
 		transform: Transform.translate(0,0,2),
 	});
 
+	this.frontierImage.on('click', function(){
+		eventHandler.emit('returnToTopClicked');
+	});
+
 	this.viewNode.add(this.frontierImageMod).add(this.frontierImage);
 	this.frontierImage.pipe(this._eventOutput);
 	/******************************************************************/

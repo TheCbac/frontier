@@ -136,6 +136,16 @@ DatesView = function () {
 		return [0.8 * globalWindowX, true];
 	});
 
+	this.oregonDescriptionMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.45];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.35];
+		}
+	});
+
 	this.viewNode.add(this.oregonDescriptionMod).add(this.oregonDescriptionSurface);
 	this.oregonDescriptionSurface.pipe(this._eventOutput);
 

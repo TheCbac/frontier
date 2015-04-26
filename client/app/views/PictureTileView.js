@@ -8,7 +8,7 @@ var RenderNode 			= require('famous/core/RenderNode');
 var ContainerSurface 	= require('famous/surfaces/ContainerSurface');
 var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
-PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTextContent) {
+PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTextContent, frontTextModMobileAlignY, frontTextModSizeMobileX, rearTextModMobileAlignY, rearTextModSizeMobileX ) {
 
 	/* True Constants */
 	this.imageSource = src;
@@ -23,6 +23,12 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 
 	/* add all, OriginFrom function */ 
 
+	this.frontTextModMobileAlignY = frontTextModMobileAlignY;
+	this.frontTextModSizeMobileX = 	frontTextModSizeMobileX;
+
+
+	this.rearTextModMobileAlignY = rearTextModMobileAlignY;
+	this.rearTextModSizeMobileX =  rearTextModSizeMobileX; 
 
 	/* Front container variables */
 	this.frontContainerModOrigin 	= [0.5, 0.5];
@@ -46,8 +52,10 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	this.frontTextProperties 		= {fontFamily: "gothamHTF",
 											color: "white",
 										 fontSize: "2em",
-										textAlign: "center",};
-	this.frontTextModSize			= [175, 175 ];
+										textAlign: "center",
+										// backgroundColor:"blue",
+									};
+	this.frontTextModSize			= [175, true ];
 	this.frontTextModOrigin			= [0.5, 0.5 ];
 	this.frontTextModAlign			= [0.5, 0.55];
 	this.frontTextModTrans			= Transform.translate(0,0,1);
@@ -56,7 +64,9 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	this.rearTextProperties 		= {fontFamily: "gothamHTF",
 											color: "white",
 										 fontSize: "2em",
-										textAlign: "center",};
+										textAlign: "center",
+										// backgroundColor:"blue",
+									};
 	this.rearTextModSize			= [300, 200 ];
 	this.rearTextModOrigin			= [0.5, 0.5 ];
 	this.rearTextModAlign			= [0.5, 0.55];
@@ -271,6 +281,26 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 		transform:  this.frontTextModTrans,
 	});
 
+	this.frontTextMod.sizeFrom(function(){
+		if(globalTileState==2){
+			return [175, true];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [this.frontTextModSizeMobileX, true];
+		}
+	}.bind(this));
+
+	this.frontTextMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.5];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,this.frontTextModMobileAlignY];
+		}
+	}.bind(this));
+
 
 	this.frontContainerSurface.add(this.frontTextMod).add(this.frontTextSurface);
 	this.frontTextSurface.pipe(this._eventOutput);
@@ -288,6 +318,27 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 		align:  	this.rearTextModAlign,
 		transform:  this.rearTextModTrans,
 	});
+
+	this.rearTextMod.sizeFrom(function(){
+		if(globalTileState==2){
+			return [175, true];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [this.rearTextModSizeMobileX, true];
+		}
+	}.bind(this));
+
+	this.rearTextMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.5];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,this.rearTextModMobileAlignY];
+		}
+	}.bind(this));
+
 
  	this.rearContainerSurface.add(this.rearTextMod).add(this.rearTextSurface);
  	this.rearTextSurface.pipe(this._eventOutput);

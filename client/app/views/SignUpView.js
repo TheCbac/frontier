@@ -73,6 +73,16 @@ SignUpView = function () {
 		return [globalWindowX, true];
 	});
 
+	this.titleTextSurfaceMod.alignFrom( function(){
+		if(globalTileState==2){
+			return [0.5,0.1];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.05];
+		}
+	});
+
 	this.viewNode.add(this.titleTextSurfaceMod).add(this.titleTextSurface);
 	this.titleTextSurface.pipe(this._eventOutput);
 
@@ -95,7 +105,14 @@ SignUpView = function () {
 	});
 
 	this.descriptionTextSurfaceMod.sizeFrom( function(){
-		return [500, true];
+
+		if(globalTileState==2){
+			return [500, true];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [300, true];
+		}
 		//return [window.innerWidth - 100, true];
 	});
 
@@ -103,7 +120,7 @@ SignUpView = function () {
 	this.descriptionTextSurface.pipe(this._eventOutput);
 
 	/******************* Email input  box ************************/
-	this.emailSurface = new InputSurface({
+	this.emailInputSurface = new InputSurface({
 		placeholder:"Email Address",
 		properties:{
 			backgroundColor:"#28303B",
@@ -117,27 +134,43 @@ SignUpView = function () {
 		},
 	});
 
-	this.emailSurface.on("click", function(){
+	this.emailInputSurface.on("click", function(){
 		this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,-1), 
 														{duration:0});
 	}.bind(this));
 
-	this.emailMod = new Modifier({
+	this.emailInputMod = new Modifier({
 		transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
 		align: 	[0.5, 0.55],
 		size: [500,50]
 	});
 
+	this.emailInputMod.sizeFrom(function() {
+		if(globalTileState==2){
+			return [500, true];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [300, true];
+		}
+	});
 
-	this.viewNode.add(this.emailMod).add(this.emailSurface);
-	this.emailSurface.pipe(this._eventOutput);
+	this.emailInputSurface.on('keydown', function(event){
+		//Enter key pressed 
+		if(event.keyCode == 13){
+			this.joinButtonSubmit();
+		}
+	}.bind(this));
+
+	this.viewNode.add(this.emailInputMod).add(this.emailInputSurface);
+	this.emailInputSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
 	
 
 	/******************* Join text  box ************************/
-	this.joinSurface = new Surface({
+	this.joinButtonSurface = new Surface({
 		content: "Join",
 		properties:{
 			// backgroundColor:"blue",
@@ -152,7 +185,7 @@ SignUpView = function () {
 		}
 	});
 
-	this.joinMod = new Modifier({
+	this.joinButtonMod = new Modifier({
 		transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
 		align: 	[0.5, 0.8],
@@ -160,10 +193,10 @@ SignUpView = function () {
 	});
 
 	this.mouseSync = new MouseSync();
-	this.joinSurface.pipe(this.mouseSync);
+	this.joinButtonSurface.pipe(this.mouseSync);
 
 	this.mouseSync.on('start', function(event){
-		this.joinSurface.setProperties({
+		this.joinButtonSurface.setProperties({
 			backgroundColor:"#345F37",
 			borderColor:"#569F5B",
 			color:"#28303B",
@@ -171,13 +204,18 @@ SignUpView = function () {
 	}.bind(this));
 
 	this.mouseSync.on('end', function(event){
-		this.joinSurface.setProperties({
+		this.joinButtonSurface.setProperties({
 			backgroundColor:"#569F5B",
 			borderColor:"#569F5B",
 			color:"#28303B",
 		});
+		this.joinButtonSubmit();
 
-		var emailAdd = this.emailSurface.getValue().toLowerCase();
+	}.bind(this));
+
+	this.joinButtonSubmit = function(){
+		
+		var emailAdd = this.emailInputSurface.getValue().toLowerCase();
 		// console.log(emailAdd);
 
 		//regex for email address
@@ -202,27 +240,26 @@ SignUpView = function () {
 			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
 														{duration:0});
 		}
+	}.bind(this);
 
-	}.bind(this));
-
-	this.joinSurface.on('mouseenter', function(){
-		this.joinSurface.setProperties({
+	this.joinButtonSurface.on('mouseenter', function(){
+		this.joinButtonSurface.setProperties({
 			backgroundColor:"#569F5B",
 			borderColor:"#569F5B",
 			color:"#28303B",
 		});
 	}.bind(this));
 
-	this.joinSurface.on('mouseleave', function(){
-		this.joinSurface.setProperties({
+	this.joinButtonSurface.on('mouseleave', function(){
+		this.joinButtonSurface.setProperties({
 			backgroundColor:"#28303B",
 			color:"#569F5B",
 		});
 	}.bind(this));
 
 
-	this.viewNode.add(this.joinMod).add(this.joinSurface);
-	this.joinSurface.pipe(this._eventOutput);
+	this.viewNode.add(this.joinButtonMod).add(this.joinButtonSurface);
+	this.joinButtonSurface.pipe(this._eventOutput);
 
 	/******************************************************************/
 
@@ -243,13 +280,9 @@ SignUpView = function () {
 	this.acceptanceTextSurfaceMod = new StateModifier({
 		transform: Transform.translate(0,0,-1),
 		origin: [0.5, 0.5],
-		align: 	[0.5, 0.63],
+		align: 	[0.5, 0.64],
 	});
 
-	// this.acceptanceTextSurfaceMod.sizeFrom( function(){
-	// 	return [500, true];
-	// 	//return [window.innerWidth - 100, true];
-	// });
 
 	this.viewNode.add(this.acceptanceTextSurfaceMod).add(this.acceptanceTextSurface);
 	this.acceptanceTextSurface.pipe(this._eventOutput);
@@ -266,20 +299,6 @@ SignUpView = function () {
 		transform: Transform.translate(0,0,1),
 	});
 
-	// // Add the modifier to the pullDownNode 
-	// this.pullDownNode = new RenderNode(this.pullDownImageMod);
-	// // Add a controller to the pulldown node
-	// this.pullDownNode.add(this.renderController);
-	// //add the pulldownNode to the view
-	// this.viewNode.add(this.pullDownNode);
-
-	// this.pullDownImage.pipe(this._eventOutput);
-
-	
-	// //var eventHandler = new EventHandler();
-	// this.pullDownImage.on('click', function(event){
-	// 	eventHandler.emit('pullDownClicked');
-	// });
 	/******************************************************************/
 
 
