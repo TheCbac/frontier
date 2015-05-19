@@ -1,10 +1,11 @@
 globalWindowX=null;
 globalWindowY=null;
 globalAspectRatio=null;
-globalTileState=null;
+globalTileState=1;
 globalGridX = null;
 globalGridY = null;
 globalTileNum = 4;
+globalActiveTile = null;
 
 
 updateWindowSize = function(){
@@ -36,25 +37,27 @@ updateWindowSize = function(){
 		}
 
 		else {
-			if ( globalWindowY >= 1000 ){
-				eventHandler.emit("tileState2");
-				globalTileState= 2;
-			}
+			// if ( globalWindowY >= 1000 ){
+			// 	eventHandler.emit("tileState2");
+			// 	globalTileState= 2;
+			// }
 
-			else {
-				eventHandler.emit("tileState1");
-				globalTileState= 1;
-				}
+			// else {
+			// 	eventHandler.emit("tileState1");
+			// 	globalTileState= 1;
+			// 	}
 
+			globalTileState=1;
 			globalGridX = 1;
 			globalGridY = globalTileNum;
 
 		}
 	}
+
 	
 	// If there was a transition over 1, change the globalTileState
-	if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
-		
+	// if (globalAspectRatio >= 1 && pastAspectRatio < 1 ) {
+	if (globalAspectRatio >= 1){
 		// simplistic way of avoiding overflow bug
 		if (scroll.getPosition() > 266){
 			// console.log("Over Screen");
@@ -73,23 +76,26 @@ updateWindowSize = function(){
 	 	globalGridY =1;
 	}
 
-	else if(globalAspectRatio < 1 && pastAspectRatio >= 1){
+	// else if(globalAspectRatio < 1 && pastAspectRatio >= 1){
+	else if(globalAspectRatio < 1){
 		// don't resive if screen is more that 1000 px high
-		if ( globalWindowY >= 1000 ){
-			eventHandler.emit("tileState2");
-			globalTileState= 2;
-		}
+		// if ( globalWindowY >= 1000 ){
+		// 	eventHandler.emit("tileState2");
+		// 	globalTileState= 2;
+		// }
 
-		else {
-			eventHandler.emit("tileState1");
-			globalTileState= 1;
-		}
+		// else {
+		// 	eventHandler.emit("tileState1");
+		// 	globalTileState= 1;
+		// }
 
+		globalTileState= 1;
 		globalGridX = 1;
 		globalGridY = globalTileNum;
 
 
 	}
+
 };
 
 

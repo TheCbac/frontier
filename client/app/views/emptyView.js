@@ -22,10 +22,6 @@ EmptyView = function () {
 	this.viewNode = this.add(this.viewModifier);
 	/******************************************************************/
 
-	/*********************** Render Controller ************************/
-	this.renderController = new RenderController();
-	this.viewNode.add(this.renderController);
-	/******************************************************************/
 
 	/******************* Background Surface *****************************/
 	this.backgroundSurface = new Surface({
@@ -42,7 +38,7 @@ EmptyView = function () {
 	});
 
 
-	this.ViewewNode.add(this.backgroundMod).add(this.backgroundSurface);
+	this.viewNode.add(this.backgroundMod).add(this.backgroundSurface);
 	this.backgroundSurface.pipe(this._eventOutput);
 
 	// this.backgroundSurface.on('click', function(event){

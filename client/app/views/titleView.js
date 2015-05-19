@@ -19,6 +19,7 @@ TitleView =function() {
 	this.viewNode = this.add(this.viewModifier);
 
 	
+
 	/******************* Background image ************************/
 	this.backgroundImage = new ImageSurface({
 		content:"/pictures/forest-landscape.jpeg",
@@ -30,6 +31,7 @@ TitleView =function() {
 		origin: [0.5,1.0],
 		transform: Transform.translate(0,0,-1)
 	});
+
 
 	/* Background Image sizing Algorithm */
 	this.backgroundImageMod.sizeFrom( function(){
@@ -107,12 +109,12 @@ TitleView =function() {
 		align:[0.9, 0.05],
 		transform: Transform.translate(0,0,4),
 	});
-	this.viewNode.add(this.hamburgerImageMod).add(this.hamburgerImage);
-	this.hamburgerImage.pipe(this._eventOutput);
+	// this.viewNode.add(this.hamburgerImageMod).add(this.hamburgerImage);
+	// this.hamburgerImage.pipe(this._eventOutput);
 
-	this.hamburgerImage.on('click', function(event){
-		eventHandler.emit('toggleDrawer');
-	});
+	// this.hamburgerImage.on('click', function(event){
+	// 	eventHandler.emit('toggleDrawer');
+	// });
 	/******************************************************************/
 
 	/******************* Oregon 2015 text *****************************/

@@ -6,3 +6,6 @@
 
 meteor-platform
 raix:famono
+iron:router
+accounts-ui
+accounts-password

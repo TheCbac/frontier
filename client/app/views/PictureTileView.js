@@ -8,18 +8,27 @@ var RenderNode 			= require('famous/core/RenderNode');
 var ContainerSurface 	= require('famous/surfaces/ContainerSurface');
 var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
-PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextContent) {
+PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTextContent, frontTextModMobileAlignY, frontTextModSizeMobileX, rearTextModMobileAlignY, rearTextModSizeMobileX ) {
 
 	/* True Constants */
 	this.imageSource = src;
 	this.imageX = imageX;
 	this.imageY = imageY;
 
+	this.tileName =name; 
+
 	/* should be refactored to make the default
 	arguments depend on a factory input in the 
 	calling funciton  */ 
 
 	/* add all, OriginFrom function */ 
+
+	this.frontTextModMobileAlignY = frontTextModMobileAlignY;
+	this.frontTextModSizeMobileX = 	frontTextModSizeMobileX;
+
+
+	this.rearTextModMobileAlignY = rearTextModMobileAlignY;
+	this.rearTextModSizeMobileX =  rearTextModSizeMobileX; 
 
 	/* Front container variables */
 	this.frontContainerModOrigin 	= [0.5, 0.5];
@@ -31,7 +40,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	/* Front Background variables */
 	this.frontBackgroundModOrigin 	= [0.5, 0.5];
 	this.frontBackgroundModAlign 	= [0.5, 0.5];
-	this.frontBackgroundTrans		= Transform.translate(0,0,-3);
+	// this.frontBackgroundTrans		= 
 	/* Rear Background  variables */
 	this.rearBackgroundColor 		= "#28303B";
 	this.rearBackgroundModOrigin 	= [0.5, 0.5];
@@ -43,8 +52,10 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	this.frontTextProperties 		= {fontFamily: "gothamHTF",
 											color: "white",
 										 fontSize: "2em",
-										textAlign: "center",};
-	this.frontTextModSize			= [175, 175 ];
+										textAlign: "center",
+										// backgroundColor:"blue",
+									};
+	this.frontTextModSize			= [175, true ];
 	this.frontTextModOrigin			= [0.5, 0.5 ];
 	this.frontTextModAlign			= [0.5, 0.55];
 	this.frontTextModTrans			= Transform.translate(0,0,1);
@@ -53,7 +64,9 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	this.rearTextProperties 		= {fontFamily: "gothamHTF",
 											color: "white",
 										 fontSize: "2em",
-										textAlign: "center",};
+										textAlign: "center",
+										// backgroundColor:"blue",
+									};
 	this.rearTextModSize			= [300, 200 ];
 	this.rearTextModOrigin			= [0.5, 0.5 ];
 	this.rearTextModAlign			= [0.5, 0.55];
@@ -72,8 +85,59 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	this.viewNode = this.add(this.viewModifier);
 
 	this.on('click', function(){
+		// this.unzoom();
+		// this.enter=null;
+		// this.exit=null;
 		this.flipSlide();
 	}.bind(this));
+
+
+	/* The transition logic is extrememly hackish */
+	this.on('mouseover', function(event){
+		// console.log("hover");
+		if(event.currentTarget.attributes.src){
+			this.enter = event.currentTarget.attributes.src.nodeValue;	
+			// console.log(this.enter);
+		}
+
+
+		
+		//globalActiveTile = this.tileName;
+		if (this.enter !== undefined){
+			this.zoom();
+		}
+
+	});
+
+	this.on('mouseout', function(){
+		if (event.relatedTarget && event.relatedTarget.attributes.class.ownerElement.offsetParent){
+			if(event.relatedTarget.attributes.class.ownerElement.offsetParent.firstChild.attributes.src){
+				this.exit = event.relatedTarget.attributes.class.ownerElement.offsetParent.firstChild.attributes.src.nodeValue;
+			}
+			else{
+				this.unzoom();
+			}
+			// console.log("mouseOut: "+this.exit);
+		}
+		
+		// debugger
+		
+		//if (globalActiveTile == this.tileName){
+		if (this.exit != this.enter){
+
+			this.unzoom();
+		}
+		//}
+	});
+
+	/* Zoom function */
+	this.zoom = function(){
+		this.frontBackgroundTrans.setScale([1.1,1.1], {duration:100});
+	};
+
+	this.unzoom=function(){
+		this.frontBackgroundTrans.setScale([1,1], {duration:100});
+	};
 
 	/* Flipping functions */
 	this.flipSlide = function(){
@@ -82,6 +146,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		}
 
 		else if (this.slideState == "back"){
+			this.frontContainerTrans.setRotate([0,Math.PI/2,0], {duration:0});
 			this.rearContainerTrans.setRotate([0,Math.PI/2,0], {duration:500},this.startFront);
 		}
 	}.bind(this);
@@ -89,9 +154,12 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	this.startBack = function(){
 		this.rearContainerTrans.setRotate([0,0,0], {duration:500});
 		this.slideState = "back";
+		this.frontContainerTrans.setRotate([0,0,0], {duration:500});
+		this.frontContainerTrans.setTranslate([0,0,-5], {duration:0});
 	}.bind(this);
 
 	this.startFront = function(){
+		
 		this.frontContainerTrans.setRotate([0,0,0], {duration:500});
 		this.slideState = "front";
 	}.bind(this);
@@ -130,6 +198,7 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		}
 	});
 
+
 	this.rearContainerTrans = new TransitionableTransform(
 		Transform.rotateY(Math.PI/2)
 		);
@@ -149,6 +218,12 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		content: 	this.imageSource,
 	});
 
+	this.frontBackgroundTrans = new TransitionableTransform(
+		Transform.translate(0,0,-3)
+		// Transform.scale([1,1])
+		);
+	this.frontBackgroundTrans.setScale([1,1], {duration:0});
+	
 	this.frontBackgroundMod = new Modifier({
 		origin: 	this.frontBackgroundModOrigin,
 		align: 		this.frontBackgroundModAlign,
@@ -156,7 +231,11 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 	});
 
 	this.frontBackgroundMod.sizeFrom(function(){
-		var test = dynamicScale2(this.imageX, this.imageY,globalWindowX/globalGridX, globalWindowY/globalGridY);
+		// var test = dynamicScale2(this.imageX, this.imageY, this.sizeX, globalWindowY/globalGridY);
+		this.sizeY = globalWindowY/globalGridY;
+		this.sizeX = globalWindowX/globalGridX;
+
+		var test = dynamicScale2(this.imageX, this.imageY, this.sizeX, this.sizeY);
 		// console.log(this.imageX + "," + this.imageY);
 		// console.log(test);
 		return test;
@@ -202,6 +281,27 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		transform:  this.frontTextModTrans,
 	});
 
+	this.frontTextMod.sizeFrom(function(){
+		if(globalTileState==2){
+			return [175, true];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [this.frontTextModSizeMobileX, true];
+		}
+	}.bind(this));
+
+	this.frontTextMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.5];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,this.frontTextModMobileAlignY];
+		}
+	}.bind(this));
+
+
 	this.frontContainerSurface.add(this.frontTextMod).add(this.frontTextSurface);
 	this.frontTextSurface.pipe(this._eventOutput);
 
@@ -218,6 +318,27 @@ PictureTileView = function (src, imageX, imageY, frontTextContent, rearTextConte
 		align:  	this.rearTextModAlign,
 		transform:  this.rearTextModTrans,
 	});
+
+	this.rearTextMod.sizeFrom(function(){
+		if(globalTileState==2){
+			return [175, true];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [this.rearTextModSizeMobileX, true];
+		}
+	}.bind(this));
+
+	this.rearTextMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.5];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,this.rearTextModMobileAlignY];
+		}
+	}.bind(this));
+
 
  	this.rearContainerSurface.add(this.rearTextMod).add(this.rearTextSurface);
  	this.rearTextSurface.pipe(this._eventOutput);

@@ -5,6 +5,7 @@ var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
 var RenderController 	= require('famous/views/RenderController');
 var RenderNode 			= require('famous/core/RenderNode');
+var MouseSync 			= require('famous/inputs/MouseSync');
 
 FrontierAwaitsView = function () {
 	View.apply(this, arguments);
@@ -53,19 +54,30 @@ FrontierAwaitsView = function () {
 			// color: "#646665",
 			color: "#b2b2b2",
 			// backgroundColor: "blue",
-			fontSize: "1em",
-			fontFamily:"gothamHTF"
+			fontSize: "2em",
+			fontFamily:"gothamHTF",
+			textAlign: "center"
 		}
 	});
 
 	this.titleTextSurfaceMod = new Modifier({
 		transform: Transform.translate(0,0,1),
-		origin: [0.0, 0.5],
-		align: 	[0.05, 0.1],
+		origin: [0.5, 0.5],
+		// align: 	[0.5, 0.1],
 	});
 
 	this.titleTextSurfaceMod.sizeFrom( function(){
 		return [globalWindowX, true];
+	});
+
+	this.titleTextSurfaceMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.1];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.05];
+		}
 	});
 
 	this.viewNode.add(this.titleTextSurfaceMod).add(this.titleTextSurface);
@@ -73,19 +85,20 @@ FrontierAwaitsView = function () {
 
 	// ---------------- Description ------------------
 	this.descriptionTextSurface = new Surface({
-		content: "Conceived through countless nights of purveying in a small wayward barn south of the treacherous Yukon Territory, The Frontier represents more than just a gathering of friends. We are a unique herd, stronger than the forces of nature, smarter than the average bear, more diverse that a Kenyan census, and driven like a pack of ravenous lionesses hunting a water buffalo. We cannot promise that The Frontier will lift men and women from 9-5 oppression to a utopia of blissful unknowns and constant discovery. But it pretty much will. <p>Welcome to the greatest social group you will ever join. The Frontier awaits. Are you in?</p>",
+		content: "Conceived through countless nights of purveying in a small wayward barn south of the treacherous Yukon Territory, The Frontier represents more than just a gathering of friends. We are a unique herd, stronger than the forces of nature, smarter than the average bear, more diverse that a Kenyan census, and driven like a pack of ravenous lionesses hunting a water buffalo. <p> The Frontier will lift men and women from 9-5 oppression to a utopia of blissful unknowns and constant discovery. The Frontier awaits. Are you in?</p>",
 		properties: {
 			color: "#b2b2b2",
 			// backgroundColor: "blue",
 			fontSize: "0.9em",
-			fontFamily:"gothamHTF"
+			fontFamily:"gothamHTF",
+			textAlign: "center"
 		}
 	});
 
 	this.descriptionTextSurfaceMod = new Modifier({
 		transform: Transform.translate(0,0,1),
-		origin: [0.0, 0.5],
-		align: 	[0.05, 0.3],
+		origin: [0.5, 0.5],
+		align: 	[0.5, 0.3],
 	});
 
 	this.descriptionTextSurfaceMod.sizeFrom( function(){
@@ -93,9 +106,90 @@ FrontierAwaitsView = function () {
 		//return [window.innerWidth - 100, true];
 	});
 
+	this.descriptionTextSurfaceMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.3];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.2
+			];
+		}
+	});
+
 	this.viewNode.add(this.descriptionTextSurfaceMod).add(this.descriptionTextSurface);
 	this.descriptionTextSurface.pipe(this._eventOutput);
 
+	/******************* Sign me up box ************************/
+	this.signUpSurface = new Surface({
+		content: "Sign Me Up",
+		properties:{
+			// backgroundColor:"blue",
+			color:"#569F5B",
+			fontSize:"1.4em",
+			fontFamily:"gothamHTF",
+			textAlign:"center",
+			lineHeight:"50px",
+			borderStyle: "solid",
+			borderWidth:"2px",
+			cursor:"pointer",
+		}
+	});
+
+	this.signUpMod = new Modifier({
+		transform: Transform.translate(0,0,1),
+		origin: [0.5, 0.5],
+		align: 	[0.5, 0.8],
+		size: [185,50]
+	});
+
+	this.mouseSync = new MouseSync();
+	this.signUpSurface.pipe(this.mouseSync);
+
+	this.mouseSync.on('start', function(event){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#345F37",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+	}.bind(this));
+
+	this.mouseSync.on('end', function(event){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#569F5B",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+
+		this.signUpSurface.setProperties({
+			backgroundColor:"#28303B",
+			color:"#569F5B",
+		});
+	}.bind(this));
+
+	this.signUpSurface.on('mouseenter', function(){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#569F5B",
+			borderColor:"#569F5B",
+			color:"#28303B",
+		});
+	}.bind(this));
+
+	this.signUpSurface.on('mouseleave', function(){
+		this.signUpSurface.setProperties({
+			backgroundColor:"#28303B",
+			color:"#569F5B",
+		});
+	}.bind(this));
+
+	this.signUpSurface.on('click', function(){
+		eventHandler.emit('goToSignUp');
+	});
+
+	this.viewNode.add(this.signUpMod).add(this.signUpSurface);
+	this.signUpSurface.pipe(this._eventOutput);
+
+	/******************************************************************/
 	/******************* Pulldown arrow image ************************/
 	this.pullDownImage = new ImageSurface({
 		content:"/pictures/pulldown.png",

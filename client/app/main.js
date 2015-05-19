@@ -29,18 +29,10 @@ Engine.on('resize', function(){
 
 });
 
+
+
 /* Create and array for the slide tiles */
 var tiles = [];
-/* Create the scrollview */
-// scroll = new Scrollview({
-// 	// paginated:true,
-// 	//speedLimit: 0.9,
-// 	// pageStopSpeed: 0.1,
-// 	//drag: 10,
-// 	// pagePeriod: 1,
-// 	// pageDamp: 2,
-// });
-//scroll = new ScrollContainer();
 scroll = new Scrollview();
 scroll.sequenceFrom(tiles);
 
@@ -69,19 +61,6 @@ tiles.push(datesView);
 scroll.subscribe(datesView);
 
 
-// /* Third Slide - Mist rocks */
-// var mistRocksView = new MistRocksView();
-// tiles.push(mistRocksView);
-// scroll.subscribe(mistRocksView);
-
-
-rightDrawer = new RightDrawerView();
-
-
-// var mooseView = new MooseView();
-// tiles.push(mooseView);
-// scroll.subscribe(mooseView);
-
 
 var pictureGrid =[];
 
@@ -91,34 +70,34 @@ var pictureGrid =[];
 
 // add the mooseView
 //var mooseView = new MooseView();
-var mooseView = new PictureTileView('/pictures/mooseCropped.jpeg', 
-	587,700, "BECOME ONE WITH NAUTRE", "WHITE WATER RAFTING");
+var mooseView = new PictureTileView('mooseTile', '/pictures/mooseCropped.jpeg', 
+	587,700, "BECOME ONE WITH NAUTRE", "WHITE WATER RAFTING",0.2, 250, 0.2, 250);
 pictureGrid.push(mooseView);
 scroll.subscribe(mooseView);
 
 
 // Add the barnView to picture tiles 
-var barnView = new PictureTileView('/pictures/woodgrain.jpg',
-	1050,700, "THE BROAD SIDE OF THE BARN","BARN NIGHTS");
+var barnView = new PictureTileView('barnTile','/pictures/woodgrain.jpg',
+	1050,700, "THE BROAD SIDE OF THE BARN","BARN NIGHTS", 0.2, 300, 0.3, 250);
 pictureGrid.push(barnView);
 scroll.subscribe(barnView);
 
 // var trailView = new TrailView();
-var trailView = new PictureTileView('/pictures/trailCropped.jpeg',
-	609,725, "HOOF IT", "CASCADE DAZE");
+var trailView = new PictureTileView('trailTile','/pictures/trailCropped.jpeg',
+	609,725, "HOOF IT", "CASCADE DAZE", 0.35, 175, 0.2, 250);
 pictureGrid.push(trailView);
 scroll.subscribe(trailView);
 
 
 //var grapeView = new MooseView();
-var grapeView = new PictureTileView('/pictures/grapes.jpeg', 
-	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE");
+var grapeView = new PictureTileView('grapeTile' ,'/pictures/grapes_compressed.jpg', 
+	3888,2592, "CHEHALEM VALLEY", "WINE & CHEESE", 0.1, 200, 0.2, 250);
 pictureGrid.push(grapeView);
 scroll.subscribe(grapeView);
 
 
 
-//Picture at bottom of the screen 
+//Pictures at bottom of the screen 
 pictureGridView = new PictureGridView();
 pictureGridView.gridLayout.sequenceFrom(pictureGrid);
 
@@ -126,11 +105,26 @@ tiles.push(pictureGridView);
 scroll.subscribe(pictureGridView);
 
 
+// Sign up view
+signUpView = new SignUpView();
+tiles.push(signUpView);
+scroll.subscribe(signUpView);
 
+// Footer view
+footerView = new FooterView();
+tiles.push(footerView);
+scroll.subscribe(footerView);
 
-/* Crete the main context */
-mainContext.add(scroll);
-mainContext.add(renderController);
+/* Create the main context */
+Template.landingPage.helpers({
+	content: function(){
+		mainContext.add(scroll);
+		updateWindowSize();
+		// mainContext.add(renderController);
+	}
+});
+// mainContext.add(scroll);
+// mainContext.add(renderController);
 
 
 
@@ -155,4 +149,10 @@ eventHandler.on('tileState1', function(){
 	datesView.renderController.show(datesView.pullDownImage, {duration :0} );
 	
 });
+
+eventHandler.on('goToSignUp', function(){
+	scroll.goToPage(4);
+});
+
+
 

@@ -32,7 +32,7 @@ DatesView = function () {
 	this.backgroundSurface = new Surface({
 		content: "",
 		properties: {
-			backgroundColor: "white"
+			backgroundColor: "#E2DCDC"
 		}
 	});
 
@@ -51,84 +51,23 @@ DatesView = function () {
 	// 	eventHandler.emit('');
 	// });
 	/******************************************************************/
-
-	/******************* Date text Surface *****************************/
-
-	this.datesSurface = new Surface({
-		content:"JULY 9 - 12",
-		properties:{
-			fontFamily:"gothamHTF",
-			// backgroundColor:"green",
-			color: "#646665",
-			textAlign:"center",
-			fontSize:"1.5em"
-		}
-	});
-
-	this.datesSurfaceMod = new Modifier({
-		size:[150,50],
-		origin:[0,0.5],
-		transform: Transform.translate(0,0,1)
-		// align:[0.05,0.5],
-	});
-
-
-	this.datesSurfaceMod.alignFrom(function(){
-		if (globalTileState == 2){
-			return [0.05, 0.5];
-		}
-
-		if (globalTileState == 1){
-			return [0.05, 0.4];
-		}
-	});
-
-	this.viewNode.add(this.datesSurfaceMod).add(this.datesSurface);
-	this.datesSurface.pipe(this._eventOutput);
-
-	/******************************************************************/
-
-	/******************* Description Surface *****************************/
-
-	this.oregonDescriptionSurface = new Surface({
-		content:"Oregon has been deemed The Frontier’s 2015 adventure destination. Known for its grandeur and majesty, the Beaver State will never disappoint. If you want an experience so intertwined with the heart of nature that trees become friends, pastures transform into home, and flowing water turns into motion pictures, join us as we discover this green earth.",
-		properties:{
-			fontFamily:"gothamHTF",
-			color: "#646665",
-			textAlign:"right",
-			fontSize:"0.9em"
-		}
-	});
-
-	this.oregonDescriptionMod = new Modifier({
-		origin:[1,0.5],
-		align:[0.95,0.45],
-	});
-
-	this.oregonDescriptionMod.sizeFrom(function(){
-		return [0.6 * globalWindowX, true];
-	});
-
-	this.viewNode.add(this.oregonDescriptionMod).add(this.oregonDescriptionSurface);
-	this.oregonDescriptionSurface.pipe(this._eventOutput);
-
-	/******************************************************************/
-
-	/******************* Description Surface *****************************/
+	
+	/******************* Oregon Surface *****************************/
 
 	this.oregonNameSurface = new Surface({
 		content:"OREGON 2015",
 		properties:{
+			// backgroundColor:"blue",
 			fontFamily:"gothamHTF",
 			color: "#646665",
-			textAlign:"right",
-			fontSize:"1.5em"
+			textAlign:"center",
+			fontSize:"1.8em"
 		}
 	});
 
 	this.oregonNameMod = new Modifier({
-		origin:[1,0.5],
-		align:[0.95,0.3],
+		origin:[0.5,0.5],
+		align:[0.5,0.1],
 	});
 
 	this.oregonNameMod.sizeFrom(function(){
@@ -140,34 +79,76 @@ DatesView = function () {
 
 	/******************************************************************/
 
-	/******************* Pulldown arrow image ************************/
-	this.pullDownImage = new ImageSurface({
-		content:"/pictures/pulldown.png",
-		size: [50, true]
+	/******************* Date text Surface *****************************/
+
+	this.datesSurface = new Surface({
+		content:"JULY 9 - 12",
+		properties:{
+			fontFamily:"gothamHTF",
+			// backgroundColor:"green",
+			color: "#646665",
+			textAlign:"center",
+			fontSize:"2.5em"
+		}
 	});
 
-	this.pullDownImageMod = new  Modifier({
-		origin: [0.5,1.0],
-		align: [0.5,0.95],
-		transform: Transform.translate(0,0,1),
+	this.datesSurfaceMod = new Modifier({
+		size:[undefined, true],
+		origin:[0.5,0.5],
+		align:[0.5,0.25],
+		transform: Transform.translate(0,0,1)
 	});
 
-	// Add the modifier to the pullDownNode 
-	this.pullDownNode = new RenderNode(this.pullDownImageMod);
-	// Add a controller to the pulldown node
-	this.pullDownNode.add(this.renderController);
-	//add the pulldownNode to the view
-	this.viewNode.add(this.pullDownNode);
 
-	this.renderController.show(this.pullDownImage);
+	// this.datesSurfaceMod.alignFrom(function(){
+	// 	if (globalTileState == 2){
+	// 		return [0.05, 0.5];
+	// 	}
 
-	this.pullDownImage.pipe(this._eventOutput);
+	// 	if (globalTileState == 1){
+	// 		return [0.05, 0.4];
+	// 	}
+	// });
 
-	
-	//var eventHandler = new EventHandler();
-	this.pullDownImage.on('click', function(event){
-		eventHandler.emit('pullDownClicked');
+	this.viewNode.add(this.datesSurfaceMod).add(this.datesSurface);
+	this.datesSurface.pipe(this._eventOutput);
+
+	/******************************************************************/
+
+	/******************* Description Surface *****************************/
+
+	this.oregonDescriptionSurface = new Surface({
+		content:"Oregon has been deemed The Frontier’s 2015 adventure destination. <p> Known for its grandeur and majesty, the Beaver State will never disappoint. If you want an experience so intertwined with the heart of nature that trees become friends, pastures transform into home, and flowing water turns into motion pictures, join us as we discover this green earth.</p>",
+		properties:{
+			fontFamily:"gothamHTF",
+			color: "#646665",
+			textAlign:"center",
+			fontSize:"1.2em"
+		}
 	});
+
+	this.oregonDescriptionMod = new Modifier({
+		origin:[0.5, 0.5],
+		align: [0.5, 0.45],
+	});
+
+	this.oregonDescriptionMod.sizeFrom(function(){
+		return [0.8 * globalWindowX, true];
+	});
+
+	this.oregonDescriptionMod.alignFrom(function(){
+		if(globalTileState==2){
+			return [0.5,0.45];
+		}
+		//mobile
+		else if (globalTileState==1){
+			return [0.5,0.35];
+		}
+	});
+
+	this.viewNode.add(this.oregonDescriptionMod).add(this.oregonDescriptionSurface);
+	this.oregonDescriptionSurface.pipe(this._eventOutput);
+
 	/******************************************************************/
 
 
