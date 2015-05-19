@@ -19,6 +19,7 @@ TitleView =function() {
 	this.viewNode = this.add(this.viewModifier);
 
 	
+
 	/******************* Background image ************************/
 	this.backgroundImage = new ImageSurface({
 		content:"/pictures/forest-landscape.jpeg",
@@ -30,6 +31,7 @@ TitleView =function() {
 		origin: [0.5,1.0],
 		transform: Transform.translate(0,0,-1)
 	});
+
 
 	/* Background Image sizing Algorithm */
 	this.backgroundImageMod.sizeFrom( function(){

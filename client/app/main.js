@@ -29,6 +29,8 @@ Engine.on('resize', function(){
 
 });
 
+
+
 /* Create and array for the slide tiles */
 var tiles = [];
 scroll = new Scrollview();

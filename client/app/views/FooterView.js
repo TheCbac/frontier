@@ -59,6 +59,14 @@ FooterView =function() {
 	/******************************************************************/
 
 
+	// change opacity of the logo on mouseover
+	// this.copyRightText.on('mouseover', function(){
+	// 	this.copyRightText.setProperties({
+	// 		opacity}
+	// 		);
+	// 	}
+	// });
+
 	/******************* Copyright text *****************************/
 	this.copyrightText = new Surface({
 		content: "&copy Frontier 2015",
@@ -69,6 +77,7 @@ FooterView =function() {
 			fontSize:"1em",
 			textAlign: "right",
 			fontWeight: "bold",
+			cursor:"pointer",
 		}
 	});
 

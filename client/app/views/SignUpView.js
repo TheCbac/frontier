@@ -226,7 +226,7 @@ SignUpView = function () {
 		test = emailAdd.search(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z0-9]{2,4}/);
 
 		if (test === 0){
-			this.acceptanceTextSurface.setContent("Your email has been recorded!");
+			this.acceptanceTextSurface.setContent("Thanks! We’ll be in contact shortly.");
 			this.acceptanceTextSurface.setProperties({
 				color:"#569F5B",
 			});
@@ -239,7 +239,7 @@ SignUpView = function () {
 			// console.log("invalid email");
 			this.acceptanceTextSurface.setContent("Invalid email");
 			this.acceptanceTextSurface.setProperties({
-				color:"red",
+				color:"#A30000",
 			});
 			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
 														{duration:0});
