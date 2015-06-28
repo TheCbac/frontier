@@ -58,7 +58,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	this.frontTextModSize			= [175, true ];
 	this.frontTextModOrigin			= [0.5, 0.5 ];
 	this.frontTextModAlign			= [0.5, 0.55];
-	this.frontTextModTrans			= Transform.translate(0,0,1);
+	// this.frontTextModTrans			= Transform.translate(0,0,1);
 	/* Front Text Variables */
 	this.rearTextContent			= rearTextContent;
 	this.rearTextProperties 		= {fontFamily: "gothamHTF",
@@ -70,7 +70,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	this.rearTextModSize			= [300, 200 ];
 	this.rearTextModOrigin			= [0.5, 0.5 ];
 	this.rearTextModAlign			= [0.5, 0.55];
-	this.rearTextModTrans			= Transform.translate(0,0,1);
+	// this.rearTextModTrans			= Transform.translate(0,0,1);
 
 
 	/* State Variables */
@@ -219,7 +219,7 @@ PictureTileView = function (name, src, imageX, imageY, frontTextContent, rearTex
 	});
 
 	this.frontBackgroundTrans = new TransitionableTransform(
-		Transform.translate(0,0,-3)
+		// Transform.translate(0,0,-3)
 		// Transform.scale([1,1])
 		);
 	this.frontBackgroundTrans.setScale([1,1], {duration:0});

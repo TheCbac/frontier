@@ -92,6 +92,7 @@ FooterView =function() {
 	// this.copyrightTextImage.pipe(this._eventOutput);
 	this.viewNode.add(this.copyrightMod).add(this.copyrightText);
 	this.copyrightText.pipe(this._eventOutput);
+	
 	/******************************************************************/	
 
 

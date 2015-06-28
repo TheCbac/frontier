@@ -56,12 +56,13 @@ FrontierAwaitsView = function () {
 			// backgroundColor: "blue",
 			fontSize: "2em",
 			fontFamily:"gothamHTF",
-			textAlign: "center"
+			textAlign: "center",
+			zIndex:"2"
 		}
 	});
 
 	this.titleTextSurfaceMod = new Modifier({
-		transform: Transform.translate(0,0,1),
+		// transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
 		// align: 	[0.5, 0.1],
 	});
@@ -91,12 +92,13 @@ FrontierAwaitsView = function () {
 			// backgroundColor: "blue",
 			fontSize: "0.9em",
 			fontFamily:"gothamHTF",
-			textAlign: "center"
+			textAlign: "center",
+			zIndex:"2"
 		}
 	});
 
 	this.descriptionTextSurfaceMod = new Modifier({
-		transform: Transform.translate(0,0,1),
+		// transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
 		align: 	[0.5, 0.3],
 	});
@@ -133,11 +135,12 @@ FrontierAwaitsView = function () {
 			borderStyle: "solid",
 			borderWidth:"2px",
 			cursor:"pointer",
+			zIndex:"2"
 		}
 	});
 
 	this.signUpMod = new Modifier({
-		transform: Transform.translate(0,0,1),
+		// transform: Transform.translate(0,0,1),
 		origin: [0.5, 0.5],
 		align: 	[0.5, 0.8],
 		size: [185,50]
@@ -193,13 +196,16 @@ FrontierAwaitsView = function () {
 	/******************* Pulldown arrow image ************************/
 	this.pullDownImage = new ImageSurface({
 		content:"/pictures/pulldown.png",
+		properties:{
+			zIndex:"2"
+		},
 		size: [50, true]
 	});
 
 	this.pullDownImageMod = new  Modifier({
 		origin: [0.5,1.0],
 		align: [0.5,0.95],
-		transform: Transform.translate(0,0,1),
+		// transform: Transform.translate(0,0,1),
 	});
 
 	// Add the modifier to the pullDownNode 
