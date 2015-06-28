@@ -226,13 +226,17 @@ SignUpView = function () {
 		test = emailAdd.search(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z0-9]{2,4}/);
 
 		if (test === 0){
+			var result = Meteor.call('insertEmail',emailAdd);
+
 			this.acceptanceTextSurface.setContent("Thanks! We’ll be in contact shortly.");
 			this.acceptanceTextSurface.setProperties({
 				color:"#569F5B",
 			});
 			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
 														{duration:0});
-			Meteor.call('insertEmail',emailAdd);
+			
+
+
 			// console.log("valid email");
 		}
 		else{
