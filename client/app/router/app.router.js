@@ -15,7 +15,8 @@ Router.onRun(function(){
  	except:[
  	'pageNotFoundRoute',
  	'landingPageRoute',
- 	'loginPageRoute']
+ 	'loginPageRoute',
+ 	'itineraryRoute']
  });
 
 
