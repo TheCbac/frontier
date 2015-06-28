@@ -13,7 +13,7 @@ Template.adminPage.helpers({
 
 		emailTiles =[];
 		emailScroll= new Scrollview();
-		emailScroll.sequenceFrom(emailTiles);
+		
 
 		number = emailCollection.find().count();
 
@@ -28,6 +28,8 @@ Template.adminPage.helpers({
 		// 	var emailCollectionView = new EmailCollectionView(1);
 		// 	emailTiles.push(emailCollectionView);
 		// }
+
+		emailScroll.sequenceFrom(emailTiles);
 
 		adminContext.add(emailScroll);
 	}

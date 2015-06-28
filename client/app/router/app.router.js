@@ -35,3 +35,9 @@ Router.route('loginPageRoute',{
 });
 
 
+Router.route('itineraryRoute',{
+	path:'/itinerary',
+	template:'itineraryPage'
+});
+
+
