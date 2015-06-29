@@ -17,15 +17,17 @@ ItineraryView = function(){
 
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
+		return [globalWindowX, globalWindowX/1000*2040];	
 
-		// if screen is wider than it is tall
-		if ( globalWindowX/globalWindowY > 1){
-			return [globalWindowX, globalWindowX/1000*2040];	
-		}
+		// // if screen is wider than it is tall
+		// if ( globalWindowX/globalWindowY > 1){
+		// 	return [globalWindowX, globalWindowX/1000*2040];	
+		// }
 
-		else {
-			return [globalWindowY, globalWindowY/1000*2040];
-		}
+		// else {
+		// 	return [globalWindowY, globalWindowY/1000*2040];
+		// 	// return [globalWindowX, globalWindowX/1000*2040];
+		// }
 		
 	}.bind(this));
 	// Attach modifier to view
@@ -37,25 +39,18 @@ ItineraryView = function(){
 	this.imageBackground = new ImageSurface({
 		content: "/pictures/Itinerary-v3.jpg",
 		properties:{
-			userScalable:'yes'
+			// userScalable:'yes'
 		}
 	});
 
 	this.imageBackMod = new Modifier({
 		size: [undefined, true],
-		transform: Transform.translate(0,0,0),
-		// origin:[0,0],
-		// align: [1,0],
+
 	});
 
 
 	this.viewNode.add(this.imageBackMod).add(this.imageBackground);
 	this.imageBackground.pipe(this._eventOutput);
-
-
-	// this.backgroundSurface.on('click', function(event){
-	// 	eventHandler.emit('');
-	// });
 	/******************************************************************/
 
 	/******************* Background Surface *****************************/
@@ -63,12 +58,6 @@ ItineraryView = function(){
 	this.backgroundSurface = new ImageSurface({
 		content: "",
 		properties:{
-			// backgroundColor:"#468C68",
-			// color:"white",
-			// fontSize:".8em",
-			// textAlign:"center",
-			// lineHeight:'25px',
-			// fontFamily:"gothamHTF",
 			borderWidth:'0px',
 			cursor:'pointer',
 						
@@ -88,13 +77,7 @@ ItineraryView = function(){
 	this.backgroundSurface.pipe(this.mouseSync);
 
 	this.mouseSync.on('end', function(event){
-		// this.backgroundSurface.setProperties({
-		// 	backgroundColor:"#569F5B",
-		// 	borderColor:"#569F5B",
-		// 	color:"#28303B",
-		// });
 		this.contactUs();
-
 	}.bind(this));
 
 	this.contactUs = function(){
@@ -112,16 +95,18 @@ ItineraryView = function(){
 	});
 
 	this.backgroundMod.sizeFrom( function(){
+		// return [250*globalWindowX/1000, 45*globalWindowX/1000];
+
 		// console.log([250*this.scaling, 45]);
 		// if screen is wider than it is tall
-		if ( globalWindowX/globalWindowY > 1){	
-			return [250*globalWindowX/1000, 45*globalWindowX/1000];
-		}
+		// if ( globalWindowX/globalWindowY > 1){	
+		// 	return [250*globalWindowX/1000, 45*globalWindowX/1000];
+		// }
 
-		else {
-			return [250*globalWindowY/1000, 45*globalWindowY/1000];
-		}
-		// return [250*globalWindowX/1000, 45*globalWindowX/1000];
+		// else {
+		// 	return [250*globalWindowY/1000, 45*globalWindowY/1000];
+		// }
+		return [250*globalWindowX/1000, 45*globalWindowX/1000];
 	}.bind(this));
 
 
