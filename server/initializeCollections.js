@@ -42,6 +42,13 @@ if (Meteor.users.find().count() ===0){
 
 Meteor.methods({
 	insertEmail: function(emailAddress){
-		emailCollection.insert({email:emailAddress});
+		var exists = emailCollection.findOne({email:emailAddress});
+
+		if (exists === undefined){
+			emailCollection.insert({email:emailAddress});
+			return 'success';
+		}
+
+		return 'emailExists';
 	}
 });

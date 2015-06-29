@@ -32,8 +32,9 @@ SignUpView = function () {
 	/******************* Background Surface ************************/
 	this.backgroundSurface = new Surface({
 		properties:{
-			backgroundColor: "#28303B"
-			}
+			backgroundColor: "#28303B",
+			zIndex:"0"
+		}
 	});
 
 	this.backgroundSurfaceMod = new Modifier({
@@ -60,6 +61,7 @@ SignUpView = function () {
 			fontFamily:"gothamHTF",
 			textAlign: "center",
 			lineHeight:".75em",
+			zIndex:"2",
 		}
 	});
 
@@ -94,7 +96,8 @@ SignUpView = function () {
 			// backgroundColor: "blue",
 			fontSize: "0.8em",
 			fontFamily:"gothamHTF",
-			textAlign: "center"
+			textAlign: "center",
+			zIndex:"2",
 		}
 	});
 
@@ -130,6 +133,7 @@ SignUpView = function () {
 			borderWidth:"0px 0px thin 0px",
 			color: "#b2b2b2",
 			textAlign:"left",
+			zIndex:"2",
 
 		},
 	});
@@ -186,6 +190,7 @@ SignUpView = function () {
 			borderStyle: "solid",
 			borderWidth:"2px",
 			cursor:"pointer",
+			zIndex:"2",
 		}
 	});
 
@@ -226,13 +231,18 @@ SignUpView = function () {
 		test = emailAdd.search(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z0-9]{2,4}/);
 
 		if (test === 0){
+			var result = Meteor.call('insertEmail',emailAdd);
+
 			this.acceptanceTextSurface.setContent("Thanks! We’ll be in contact shortly.");
 			this.acceptanceTextSurface.setProperties({
 				color:"#569F5B",
+				zIndex:'2',
 			});
-			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
-														{duration:0});
-			Meteor.call('insertEmail',emailAdd);
+			// this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
+			// 											{duration:0});
+			
+
+
 			// console.log("valid email");
 		}
 		else{
@@ -240,9 +250,10 @@ SignUpView = function () {
 			this.acceptanceTextSurface.setContent("Invalid email");
 			this.acceptanceTextSurface.setProperties({
 				color:"#A30000",
+				zIndex:'2',
 			});
-			this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
-														{duration:0});
+			// this.acceptanceTextSurfaceMod.setTransform(Transform.translate(0,0,1), 
+			// 											{duration:0});
 		}
 	}.bind(this);
 
@@ -277,6 +288,7 @@ SignUpView = function () {
 			fontSize: "0.8em",
 			fontFamily:"gothamHTF",
 			textAlign: "left",
+			zIndex:"-1",
 			
 		}
 	});
@@ -304,6 +316,9 @@ SignUpView = function () {
 	/******************* Pulldown arrow image ************************/
 	this.pullDownImage = new ImageSurface({
 		content:"/pictures/pulldown.png",
+		properties:{
+			zIndex:"2",
+		},
 		size: [50, true]
 	});
 

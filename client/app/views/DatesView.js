@@ -32,7 +32,8 @@ DatesView = function () {
 	this.backgroundSurface = new Surface({
 		content: "",
 		properties: {
-			backgroundColor: "#E2DCDC"
+			backgroundColor: "#E2DCDC",
+			zIndex:"0",
 		}
 	});
 
@@ -61,7 +62,8 @@ DatesView = function () {
 			fontFamily:"gothamHTF",
 			color: "#646665",
 			textAlign:"center",
-			fontSize:"1.8em"
+			fontSize:"1.8em",
+			zIndex:"2",
 		}
 	});
 
@@ -88,7 +90,8 @@ DatesView = function () {
 			// backgroundColor:"green",
 			color: "#646665",
 			textAlign:"center",
-			fontSize:"2.5em"
+			fontSize:"2.5em",
+			zIndex:"2",
 		}
 	});
 
@@ -123,7 +126,8 @@ DatesView = function () {
 			fontFamily:"gothamHTF",
 			color: "#646665",
 			textAlign:"center",
-			fontSize:"1.2em"
+			fontSize:"1.2em",
+			zIndex:"2",
 		}
 	});
 

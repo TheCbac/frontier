@@ -23,13 +23,16 @@ TitleView =function() {
 	/******************* Background image ************************/
 	this.backgroundImage = new ImageSurface({
 		content:"/pictures/forest-landscape.jpeg",
+		properties:{
+			zIndex:"0"
+		}
 	});
 
 	this.backgroundImageMod = new Modifier({
 		
 		align: [0.5,1.0],
 		origin: [0.5,1.0],
-		transform: Transform.translate(0,0,-1)
+		// transform: Transform.translate(0,0,-1)
 	});
 
 
@@ -47,13 +50,16 @@ TitleView =function() {
 	/******************* Pulldown arrow image ************************/
 	this.pullDownImage = new ImageSurface({
 		content:"/pictures/pulldown.png",
+		properties:{
+			zIndex:"2"
+		},
 		size: [50, true]
 	});
 
 	this.pullDownImageMod = new  Modifier({
 		origin: [0.5,1.0],
 		align: [0.5,0.95],
-		transform: Transform.translate(0,0,1),
+		// transform: Transform.translate(0,0,1),
 	});
 
 	this.viewNode.add(this.pullDownImageMod).add(this.pullDownImage);
@@ -68,14 +74,17 @@ TitleView =function() {
 
 	/******************* Frontier Logo Image ************************/
 	this.frontierImage = new ImageSurface({
-		content:"/pictures/frontier.png"
+		content:"/pictures/frontier.png",
+		properties:{
+			zIndex:"2"
+		}
 	});
 
 	this.frontierImageMod = new Modifier({
 		size:[315,true],
 		align:[0.5, 0.38],
 		origin:[0.5, 0.5],
-		transform: Transform.translate(0,0,2),
+		// transform: Transform.translate(0,0,2),
 	});
 
 	this.viewNode.add(this.frontierImageMod).add(this.frontierImage);
@@ -85,13 +94,16 @@ TitleView =function() {
 	/******************* Upper left Logo ************************/
 	this.frontierArrows = new ImageSurface({
 		content:"/pictures/frontier-arrows.png",
+		properties:{
+			zIndex:"2"
+		}
 	});
 
 	this.frontierArrowsMod = new Modifier({
 		size: [45,true],
 		origin:[0, 0],
 		align:[0.02, 0.02],
-		transform: Transform.translate(0,0,3),
+		// transform: Transform.translate(0,0,3),
 	});
 
 	this.viewNode.add(this.frontierArrowsMod).add(this.frontierArrows);
@@ -100,14 +112,17 @@ TitleView =function() {
 
 	/******************* Upper right hamburger ************************/	
 	this.hamburgerImage = new ImageSurface({
-		content: "/pictures/hamburger.png"
+		content: "/pictures/hamburger.png",
+		properties:{
+			zIndex:"2"
+		}
 	});
 
 	this.hamburgerImageMod = new Modifier({
 		size: [true,30],
 		origin:[1.0, 0],
 		align:[0.9, 0.05],
-		transform: Transform.translate(0,0,4),
+		// transform: Transform.translate(0,0,4),
 	});
 	// this.viewNode.add(this.hamburgerImageMod).add(this.hamburgerImage);
 	// this.hamburgerImage.pipe(this._eventOutput);
@@ -127,6 +142,7 @@ TitleView =function() {
 			fontSize:"1.5em",
 			textAlign: "center",
 			fontWeight: "bold",
+			zIndex:"2"
 		}
 	});
 
@@ -134,7 +150,7 @@ TitleView =function() {
 		size: [undefined, 40],
 		origin:[0.5, 0.5],	
 		align:[0.5, 0.57],
-		transform: Transform.translate(0,0,1),
+		// transform: Transform.translate(0,0,1),
 	});
 
 	// this.viewNode.add(this.oregonTextImageMod).add(this.oregonTextImage);

@@ -15,7 +15,8 @@ Router.onRun(function(){
  	except:[
  	'pageNotFoundRoute',
  	'landingPageRoute',
- 	'loginPageRoute']
+ 	'loginPageRoute',
+ 	'itineraryRoute']
  });
 
 
@@ -32,6 +33,12 @@ Router.route('adminPageRoute',{
 Router.route('loginPageRoute',{
 	path:'/login',
 	template:'loginPage'
+});
+
+
+Router.route('itineraryRoute',{
+	path:'/itinerary',
+	template:'itineraryPage'
 });
 
 
