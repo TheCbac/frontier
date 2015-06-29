@@ -4,6 +4,7 @@ var Transform 			= require('famous/core/Transform');
 var ImageSurface 		= require('famous/surfaces/ImageSurface');
 var Modifier 			= require('famous/core/Modifier');
 var MouseSync 			= require('famous/inputs/MouseSync');
+var PinchSync 			= require('famous/inputs/PinchSync');
 
 ItineraryView = function(){
 
@@ -16,9 +17,16 @@ ItineraryView = function(){
 
 	// size view to screen
 	this.viewModifier.sizeFrom(function(){
-		// return [window.innerWidth, window.innerHeight/2];
 
-		return [globalWindowX, globalWindowX/1000*2040];
+		// if screen is wider than it is tall
+		if ( globalWindowX/globalWindowY > 1){
+			return [globalWindowX, globalWindowX/1000*2040];	
+		}
+
+		else {
+			return [globalWindowY, globalWindowY/1000*2040];
+		}
+		
 	}.bind(this));
 	// Attach modifier to view
 	this.viewNode = this.add(this.viewModifier);
@@ -27,7 +35,10 @@ ItineraryView = function(){
 	/******************* Background Surface *****************************/
 
 	this.imageBackground = new ImageSurface({
-		content: "/pictures/Itinerary.jpg"
+		content: "/pictures/Itinerary-v3.jpg",
+		properties:{
+			userScalable:'yes'
+		}
 	});
 
 	this.imageBackMod = new Modifier({
@@ -64,17 +75,17 @@ ItineraryView = function(){
 		}
 	});
 
-	// mouse sync
+	// Pinch Sync
+	// this.pinchSync = new PinchSync();
+	// this.backgroundSurface.pipe(this.pinchSync);
+
+	// this.pinchSync.on('start', function(event){
+	// 	console.log('pinch');
+	// });
+
+	// // mouse sync
 	this.mouseSync = new MouseSync();
 	this.backgroundSurface.pipe(this.mouseSync);
-
-	// this.mouseSync.on('start', function(event){
-	// 	this.backgroundSurface.setProperties({
-	// 		backgroundColor:"#345F37",
-	// 		borderColor:"#569F5B",
-	// 		color:"#28303B",
-	// 	});
-	// }.bind(this));
 
 	this.mouseSync.on('end', function(event){
 		// this.backgroundSurface.setProperties({
@@ -102,7 +113,15 @@ ItineraryView = function(){
 
 	this.backgroundMod.sizeFrom( function(){
 		// console.log([250*this.scaling, 45]);
-		return [250*globalWindowX/1000, 45*globalWindowX/1000];
+		// if screen is wider than it is tall
+		if ( globalWindowX/globalWindowY > 1){	
+			return [250*globalWindowX/1000, 45*globalWindowX/1000];
+		}
+
+		else {
+			return [250*globalWindowY/1000, 45*globalWindowY/1000];
+		}
+		// return [250*globalWindowX/1000, 45*globalWindowX/1000];
 	}.bind(this));
 
 
