@@ -37,7 +37,7 @@ ItineraryView = function(){
 	/******************* Background Surface *****************************/
 
 	this.imageBackground = new ImageSurface({
-		content: "/pictures/Itinerary-v3.jpg",
+		content: "/pictures/Itinerary-v4.jpg",
 		properties:{
 			// userScalable:'yes'
 		}
