@@ -19,6 +19,7 @@ Router.onRun(function(){
  	'itineraryRoute',
  	'costRoute',
  	'costsRoute',
+ 	'budgetRoute'
  	]
  });
 
@@ -54,6 +55,13 @@ Router.route('costsRoute',{
 	// redirect:'/cost'
 	template:'costPage'
 });
+
+Router.route('budgetRoute',{
+	path:'/budget',
+	// redirect:'/cost'
+	template:'costPage'
+});
+
 
 
 

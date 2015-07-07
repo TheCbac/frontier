@@ -30,7 +30,7 @@ CostPage = function(){
 	/******************* Background Surface *****************************/
 
 	this.imageBackground = new ImageSurface({
-		content: "/pictures/budget.JPG",
+		content: "/pictures/budget-v2.jpg",
 		properties:{
 			// userScalable:'yes'
 		}
