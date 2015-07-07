@@ -16,7 +16,10 @@ Router.onRun(function(){
  	'pageNotFoundRoute',
  	'landingPageRoute',
  	'loginPageRoute',
- 	'itineraryRoute']
+ 	'itineraryRoute',
+ 	'costRoute',
+ 	'costsRoute',
+ 	]
  });
 
 
@@ -40,5 +43,17 @@ Router.route('itineraryRoute',{
 	path:'/itinerary',
 	template:'itineraryPage'
 });
+
+Router.route('costRoute',{
+	path:'/cost',
+	template:'costPage'
+});
+
+Router.route('costsRoute',{
+	path:'/costs',
+	// redirect:'/cost'
+	template:'costPage'
+});
+
 
 
