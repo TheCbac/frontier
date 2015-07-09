@@ -31,6 +31,32 @@ Template.adminPage.helpers({
 	}
 });
 
+Template.arrivalsPage.helpers({
+	content: function(){
+
+		this.arrivalsContext = Engine.createContext();
+
+		Engine.on('resize', function(){
+			// updateWindowSize();
+			this.arrivalsScroll.setPosition(0);
+			
+		}.bind(this));
+
+		// this.itineraryView = new ItineraryView();
+		// this.costPage.add(this.itineraryView);
+
+		this.arrivalsTiles =[];
+		this.arrivalsScroll = new Scrollview();
+		this.arrivalsScroll.sequenceFrom(this.arrivalsTiles);
+
+		this.arrivalsPage = new ArrivalsPage();
+		this.arrivalsTiles.push(this.arrivalsPage);
+		this.arrivalsScroll.subscribe(this.arrivalsPage);
+
+		this.arrivalsContext.add(this.arrivalsScroll); 
+	}
+});
+
 Template.costPage.helpers({
 	content: function(){
 
